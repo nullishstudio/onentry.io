@@ -1,10 +1,10 @@
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import Image from "next/image";
 import { OnentryIoLogo } from "@/assets";
 export default function TopNavigation() {
   return (
     <div className="flex items-center justify-between my-0 mx-auto md:max-w-[1440px] w-[90%] py-6 h-20">
-      <div className="logo">
+      <div className="logo cursor-pointer">
         <Image src={OnentryIoLogo} alt="onentryio" />
       </div>
       <div className="connection_btn">

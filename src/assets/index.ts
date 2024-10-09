@@ -1,1 +1,12 @@
 export { default as OnentryIoLogo } from "./svg/ONENTRY.svg";
+export { default as ProfileOne } from "./svg/profile_one.svg";
+export { default as ProfileTwo } from "./svg/profile_two.svg";
+export { default as ProfileThree } from "./svg/profile_three.svg";
+export { default as ProfileBanner } from "./svg/profile_banner.svg";
+export { default as StorageBanner } from "./svg/storage_banner.svg";
+export { default as NFTBanner } from "./svg/nft_banner.svg";
+export { default as CrossBanner } from "./svg/cross_platform.svg";
+export { default as PrivacyBanner } from "./svg/total_privacy.svg";
+export { default as ConnectWallet } from "./svg/connect_wallet.svg";
+export { default as BuildProfile } from "./svg/build_profile.svg";
+export { default as UseEverywhere } from "./svg/use_everywhere.svg";
