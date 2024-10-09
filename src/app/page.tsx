@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import AppLayout from "@/layout/applayout";
 import Image from "next/image";
-import { ProfileOne, ProfileTwo, ProfileThree } from "@/assets";
+import { ProfileOne, ProfileTwo, ProfileThree, WavePattern } from "@/assets";
 import { onboardingSteps, accountCreationSteps } from "@/resources/data";
 import {
   Accordion,
@@ -13,7 +13,7 @@ import {
 export default function Home() {
   return (
     <AppLayout>
-      <div className="hero py-[120px] px-2 min-h-[850px] rounded-[40px] bg-bg-grad2">
+      <div className="hero py-[120px] px-2 max-h-[850px] rounded-[40px] bg-bg-grad2">
         <div className="grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
           <h1 className="font-bricolage-grotesque font-extrabold text-6xl gradient-text">
             Your Web3 Profile, Everywhere
@@ -23,10 +23,13 @@ export default function Home() {
             favorite dApps, platforms, and blockchain services, with full
             control over your identity.
           </p>
-          <Button className="text-white font-bold min-w-[204px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-current cursor-pointer bg-[linear-gradient(88deg,_#157BEB_0.65%,_#C790F3_105.42%)] font-plus-jakarta">
+          <Button className="z-50 text-white font-bold min-w-[204px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-current cursor-pointer bg-[linear-gradient(88deg,_#157BEB_0.65%,_#C790F3_105.42%)] font-plus-jakarta">
             Get Started
           </Button>
-          {/*  <div className="w-[300px] mt-8">
+          <div className="absolute bottom-0">
+            <Image src={WavePattern} alt="wave_pattern" />
+          </div>
+          {/* <div className="w-[300px] mt-8">
             <Image src={ProfileTwo} alt="base_profile" className="absolute" />
             <Image src={ProfileThree} alt="base_profile" className="absolute" />
             <Image src={ProfileOne} alt="base_profile" className="absolute" />

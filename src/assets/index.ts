@@ -10,3 +10,5 @@ export { default as PrivacyBanner } from "./svg/total_privacy.svg";
 export { default as ConnectWallet } from "./svg/connect_wallet.svg";
 export { default as BuildProfile } from "./svg/build_profile.svg";
 export { default as UseEverywhere } from "./svg/use_everywhere.svg";
+export { default as WavePattern } from "./svg/wave_pattern.svg";
+export { default as WaveFooterPattern } from "./svg/wave_footer.svg";
