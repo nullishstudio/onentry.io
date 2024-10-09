@@ -8,7 +8,7 @@ export default function TopNavigation() {
         <Image src={OnentryIoLogo} alt="onentryio" />
       </div>
       <div className="connection_btn">
-        <Button className="text-[#1A7BEB] bg-white border border-[#1A7BEB] shadow-none font-plus-jakarta font-medium text-[15px] leading-[18px] min-h-12 rounded-xl py-[18px] px-5 cursor-pointer hover:bg-[#1A7BEB] hover:text-white">
+        <Button className="text-[#7880E9] bg-white border border-[#7880E9] shadow-none font-plus-jakarta font-medium text-[15px] leading-[18px] min-h-12 rounded-xl py-[18px] px-5 cursor-pointer hover:bg-[#7880E9] hover:text-white">
           Connect Wallet
         </Button>
       </div>

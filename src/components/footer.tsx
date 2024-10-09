@@ -21,7 +21,7 @@ export default function Footer() {
         <p className=" font-plus-jakarta footer_desc_gradient text-base font-medium max-w-[500px]">
           Connect your wallet and take control of your digital identity.
         </p>
-        <Button className="z-50 font-medium min-w-[148px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-white cursor-pointer bg-white text-[#1A7BEB] font-plus-jakarta">
+        <Button className="z-50 font-medium min-w-[148px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-white cursor-pointer bg-white text-[#7880E9] font-plus-jakarta">
           Connect Wallet
         </Button>
         <div className="my-4">
