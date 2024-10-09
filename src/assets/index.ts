@@ -12,3 +12,6 @@ export { default as BuildProfile } from "./svg/build_profile.svg";
 export { default as UseEverywhere } from "./svg/use_everywhere.svg";
 export { default as WavePattern } from "./svg/wave_pattern.svg";
 export { default as WaveFooterPattern } from "./svg/wave_footer.svg";
+export { default as BombosProfile } from "./svg/bombos_profile.svg";
+export { default as AlvinProfile } from "./svg/alvin_profile.svg";
+export { default as ClementProfile } from "./svg/clement_profile.svg";
