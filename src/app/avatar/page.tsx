@@ -1,10 +1,11 @@
 import { SampleUser } from "@/assets";
 import Dashboardlayout from "@/layout/dashboardlayout";
 import Image from "next/image";
+import AvatarForm from "./components/avatar";
 
 const Avatar = () => {
   return (
-    <Dashboardlayout>
+    <Dashboardlayout title="Avatar" element={<AvatarForm />}>
       <div className="p-6 my-0 mx-auto rounded-2xl">
         <div className="min-h-[300px] bg-white p-[56px] rounded-2xl grid gap-5">
           <Image

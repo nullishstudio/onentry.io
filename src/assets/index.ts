@@ -16,3 +16,5 @@ export { default as BombosProfile } from "./svg/bombos_profile.svg";
 export { default as AlvinProfile } from "./svg/alvin_profile.svg";
 export { default as ClementProfile } from "./svg/clement_profile.svg";
 export { default as SampleUser } from "./svg/sample_user.svg";
+export { default as UserAvatarOne } from "./svg/user_avatar_one.svg";
+export { default as UserAvatarTwo } from "./svg/user_avatar_two.svg";

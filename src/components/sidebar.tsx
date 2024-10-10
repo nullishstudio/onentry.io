@@ -31,7 +31,7 @@ const Sidebar = () => {
       icon: <ProfileCircle size="18" variant="Outline" />,
     },
     {
-      name: "Wallet Addresses",
+      name: "Wallet Addresses (coming soon!)",
       url: "/wallet-address",
       icon: <TextBlock size="18" variant="Outline" />,
     },
