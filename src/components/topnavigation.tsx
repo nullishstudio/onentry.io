@@ -18,7 +18,6 @@ export default function TopNavigation() {
           {({
             account,
             chain,
-            openAccountModal,
             openChainModal,
             openConnectModal,
             authenticationStatus,

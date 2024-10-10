@@ -1,8 +1,4 @@
 "use client";
-import { RiTwitterXFill } from "react-icons/ri";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaFacebook } from "react-icons/fa6";
-import { SiFarcaster } from "react-icons/si";
 import { Link2 } from "iconsax-react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";

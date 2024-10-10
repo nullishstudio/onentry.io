@@ -30,7 +30,7 @@ const Dashboardlayout = ({
         )}
         {!pathname.includes("/dashboard") && (
           <div className="w-[392px] min-h-[879px] h-full">
-            <DashboardSidebar title={title} children={element} />
+            <DashboardSidebar title={title}>{element}</DashboardSidebar>
           </div>
         )}
         <div className="ml-[392px] w-full bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)] p-6">

@@ -4,7 +4,6 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import ReactAppQueryProvider from "@/provider/reactquery.provider";
 import Web3Provider from "@/provider/wagmi.provider";
-import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 
 export const metadata: Metadata = {
   title: "Onentry",

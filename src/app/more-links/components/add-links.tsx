@@ -89,7 +89,10 @@ const AddLinksComponent = () => {
                   Brief Bio
                 </FormLabel>
                 <FormControl>
-                  <Textarea className="rounded-xl min-h-[120px] bg-[#F9FAFC] border-[#EBEFF3] outline-[#7880E9] font-plus-jakarta" />
+                  <Textarea
+                    {...field}
+                    className="rounded-xl min-h-[120px] bg-[#F9FAFC] border-[#EBEFF3] outline-[#7880E9] font-plus-jakarta"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

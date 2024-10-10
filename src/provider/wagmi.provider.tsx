@@ -1,6 +1,6 @@
 "use client";
 import { WagmiProvider } from "wagmi";
-import { mainnet, base } from "wagmi/chains";
+import { base } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
