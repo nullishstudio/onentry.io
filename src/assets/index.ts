@@ -15,3 +15,4 @@ export { default as WaveFooterPattern } from "./svg/wave_footer.svg";
 export { default as BombosProfile } from "./svg/bombos_profile.svg";
 export { default as AlvinProfile } from "./svg/alvin_profile.svg";
 export { default as ClementProfile } from "./svg/clement_profile.svg";
+export { default as SampleUser } from "./svg/sample_user.svg";
