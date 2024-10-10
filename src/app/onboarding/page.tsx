@@ -101,7 +101,7 @@ export default function Onboarding() {
                       <Textarea
                         placeholder="Describe yourself or something else (you can cry here too)"
                         {...field}
-                        className="rounded-xl min-h-[120px] bg-[#F9FAFC] border-[#EBEFF3] outline-[#7880E9]"
+                        className="rounded-xl min-h-[120px] bg-[#F9FAFC] border-[#EBEFF3] outline-[#7880E9] font-plus-jakarta"
                       />
                     </FormControl>
                     <FormMessage />
