@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import ReactAppQueryProvider from "@/provider/reactquery.provider";
+import Web3Provider from "@/provider/wagmi.provider";
+import { RainbowKitSiweNextAuthProvider } from "@rainbow-me/rainbowkit-siwe-next-auth";
 
 export const metadata: Metadata = {
   title: "Onentry",
@@ -25,11 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${bricolage_grotesque.variable} ${plus_jakarta_sans.variable}`}
-      >
-        {children}
-      </body>
+      <ReactAppQueryProvider>
+        <Web3Provider>
+          <body
+            className={`${bricolage_grotesque.variable} ${plus_jakarta_sans.variable}`}
+          >
+            {children}
+          </body>
+        </Web3Provider>
+      </ReactAppQueryProvider>
     </html>
   );
 }
