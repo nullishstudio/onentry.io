@@ -1,11 +1,10 @@
 "use client";
 
-import { Textarea } from "@/components/ui/textarea";
 import AppButton from "@/components/button";
 import Image from "next/image";
 import { UserAvatarOne, UserAvatarTwo } from "@/assets";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 const AvatarForm = () => {
   const imgArray = [UserAvatarOne, UserAvatarTwo];

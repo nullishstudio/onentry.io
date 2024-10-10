@@ -8,7 +8,7 @@ import DashboardSidebar from "@/components/dashboardsidebar";
 interface DashboardlayoutProps {
   children: ReactNode;
   title: string;
-  element: ReactNode;
+  element?: ReactNode;
 }
 
 const Dashboardlayout = ({
