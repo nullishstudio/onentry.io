@@ -55,11 +55,11 @@ const Sidebar = () => {
       url: "/interests",
       icon: <Gameboy size="18" variant="Outline" />,
     },
-    {
+    /*  {
       name: "Photos",
       url: "/photos",
       icon: <GalleryEdit size="18" variant="Outline" />,
-    },
+    }, */
   ] as const;
 
   const path = usePathname();

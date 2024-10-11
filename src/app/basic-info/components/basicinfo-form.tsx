@@ -13,6 +13,12 @@ import {
 import TextInput from "@/components/input";
 import { Textarea } from "@/components/ui/textarea";
 import AppButton from "@/components/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "@/service/api.service";
+import { apiRoutes } from "@/service/api.route";
+import { toast } from "sonner";
+import Spinner from "@/components/spinner";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -26,21 +32,57 @@ const formSchema = z.object({
   }),
 });
 
-const BasicInfoForm = () => {
+interface DataProps {
+  data: {
+    fullname: string;
+    username: string;
+    bio: string;
+  };
+}
+
+const BasicInfoForm = ({ data }: DataProps) => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      fullname: "",
-      bio: "",
+      username: data?.username || "",
+      fullname: data?.fullname || "",
+      bio: data?.bio || "",
+    },
+  });
+
+  useEffect(() => {
+    form.reset({
+      username: data?.username || "",
+      fullname: data?.fullname || "",
+      bio: data?.bio || "",
+    });
+  }, [data?.bio, data?.fullname, data?.username, form]);
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationKey: ["updateProfile"],
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      await axiosInstance.patch(apiRoutes.USER, {
+        fullname: values?.fullname,
+        username: values?.username,
+        bio: values?.bio,
+      });
+    },
+    onSuccess: () => {
+      toast.success("Account updated successfully");
+      queryClient.refetchQueries({
+        queryKey: ["basicprofile"],
+      });
+    },
+    onError: () => {
+      toast("Something went wrong");
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    mutateAsync(values);
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-5">
@@ -97,7 +139,8 @@ const BasicInfoForm = () => {
           )}
         />
         <div className="flex flex-col self-end justify-end relative">
-          <AppButton text="Save" className="mt-5" />
+          {!isPending && <AppButton text="Save" className="mt-5" />}
+          {isPending && <Spinner />}
         </div>
       </form>
     </Form>

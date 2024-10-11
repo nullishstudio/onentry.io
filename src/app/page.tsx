@@ -16,8 +16,64 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useQuery } from "@tanstack/react-query";
+import { useAccount } from "wagmi";
+import { axiosInstance } from "@/service/api.service";
+import { apiRoutes } from "@/service/api.route";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Home() {
+  const { address } = useAccount();
+  const router = useRouter();
+
+  const verifyWalletAddress = async () => {
+    const res = await axiosInstance.get(
+      `${apiRoutes.VERIFY_WALLET}/${address}`
+    );
+    if (res.data.statusCode === 404) {
+      return await createWalletAddress();
+    } else {
+      return loginWalletAddress();
+    }
+  };
+
+  const loginWalletAddress = async () => {
+    const res = await axiosInstance.post(apiRoutes.LOGIN, {
+      wallet_address: address?.toString(),
+    });
+    if (res.status === 201 || res.status === 200) {
+      localStorage.setItem("onentry_token", res.data.data.token);
+      toast.success(res.data.message);
+      router.push("/dashboard");
+    } else {
+      toast.error("Something went wrong! Please try again.");
+    }
+  };
+
+  const createWalletAddress = async () => {
+    const res = await axiosInstance.post(apiRoutes.CREATE_ACCOUNT, {
+      wallet_address: address?.toString(),
+    });
+    if (res.status === 201 || res.status === 200) {
+      localStorage.setItem("onentry_token", res.data.data.token);
+      toast.success(res.data.message);
+      router.push(`/onboarding/${address}`);
+    } else {
+      toast.error("Something went wrong! Please try again.");
+    }
+  };
+
+  const {} = useQuery({
+    queryKey: ["verifywallet"],
+    queryFn: () => verifyWalletAddress(),
+    enabled: !!address,
+    retry: false,
+    refetchInterval: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
   return (
     <AppLayout>
       <div className="hero relative py-[120px] px-2 max-h-[800px] rounded-[40px] bg-bg-grad2 overflow-hidden">

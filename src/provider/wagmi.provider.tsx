@@ -1,5 +1,5 @@
 "use client";
-import { WagmiProvider } from "wagmi";
+import { http, WagmiProvider } from "wagmi";
 import { base } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { ReactNode } from "react";
@@ -9,6 +9,9 @@ const config = getDefaultConfig({
   appName: "Onentry",
   projectId: process.env.NEXT_PUBLIC_PROJECT_ID!,
   chains: [base],
+  transports: {
+    [base.id]: http(),
+  },
   ssr: true,
 });
 

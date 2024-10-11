@@ -18,6 +18,12 @@ import AppButton from "@/components/button";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { axiosInstance } from "@/service/api.service";
+import { apiRoutes } from "@/service/api.route";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Spinner from "@/components/spinner";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -32,6 +38,7 @@ const formSchema = z.object({
 });
 
 export default function Onboarding() {
+  const router = useRouter();
   const params = useParams();
   const wallet = params.wallet;
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,10 +50,26 @@ export default function Onboarding() {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationKey: ["updateProfile"],
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      await axiosInstance.post(apiRoutes.USER, {
+        fullname: values?.fullname,
+        username: values?.username,
+        bio: values?.bio,
+      });
+    },
+    onSuccess: () => {
+      toast("Account updated successfully");
+      router.push("/dashboard");
+    },
+    onError: () => {
+      toast("Something went wrong");
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    mutateAsync(values);
   }
   return (
     <div className="flex justify-between items-center min-h-dvh p-6">
@@ -112,7 +135,8 @@ export default function Onboarding() {
                   </FormItem>
                 )}
               />
-              <AppButton text="Save" className="mt-5" />
+              {!isPending && <AppButton text="Save" className="mt-5" />}
+              {isPending && <Spinner />}
             </form>
           </Form>
         </div>

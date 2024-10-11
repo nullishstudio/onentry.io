@@ -4,6 +4,7 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import ReactAppQueryProvider from "@/provider/reactquery.provider";
 import Web3Provider from "@/provider/wagmi.provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Onentry",
@@ -35,6 +36,7 @@ export default function RootLayout({
           >
             {children}
           </body>
+          <Toaster />
         </Web3Provider>
       </ReactAppQueryProvider>
     </html>
