@@ -21,6 +21,7 @@ export default function TopNavigation() {
             openChainModal,
             openConnectModal,
             authenticationStatus,
+            openAccountModal,
             mounted,
           }) => {
             const ready = mounted && authenticationStatus !== "loading";
@@ -61,6 +62,54 @@ export default function TopNavigation() {
                       </button>
                     );
                   }
+
+                  return (
+                    <div style={{ display: "flex", gap: 12 }}>
+                      <button
+                        onClick={openChainModal}
+                        style={{ display: "flex", alignItems: "center" }}
+                        type="button"
+                      >
+                        {chain.hasIcon && (
+                          <div
+                            style={{
+                              background: chain.iconBackground,
+                              width: 12,
+                              height: 12,
+                              borderRadius: 999,
+                              overflow: "hidden",
+                              marginRight: 4,
+                            }}
+                            className="text-sm font-plus-jakarta"
+                          >
+                            {chain.iconUrl && (
+                              <Image
+                                alt={chain.name ?? "Chain icon"}
+                                src={chain.iconUrl}
+                                width={12}
+                                height={12}
+                                style={{ width: 12, height: 12 }}
+                              />
+                            )}
+                          </div>
+                        )}
+                        <span className="text-sm font-plus-jakarta">
+                          {chain.name}
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={openAccountModal}
+                        type="button"
+                        className="rounded-[14px] p-2 bg-[linear-gradient(91deg,_#FCE4FF_2.91%,_#FFEBD7_99.03%)] text-sm font-plus-jakarta"
+                      >
+                        {`${account.address.slice(
+                          0,
+                          6
+                        )}...${account.address.slice(7, 14)}`}
+                      </button>
+                    </div>
+                  );
                 })()}
               </div>
             );

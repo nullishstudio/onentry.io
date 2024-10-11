@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import AppLayout from "@/layout/applayout";
 import Image from "next/image";
@@ -14,28 +15,89 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Home() {
   return (
     <AppLayout>
       <div className="hero relative py-[120px] px-2 max-h-[800px] rounded-[40px] bg-bg-grad2 overflow-hidden">
-        <div className="grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
+        <div className="z-[9999999] grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
           <h1 className="font-bricolage-grotesque font-extrabold text-6xl gradient-text">
             Your Web3 Profile, Everywhere
           </h1>
-          <p className="font-plus-jakarta text-[#565F71] text-base font-medium max-w-[436px]">
+          <p className="z-50 font-plus-jakarta text-[#565F71] text-base font-medium max-w-[436px]">
             Create a decentralized profile that follows you across all your
             favorite dApps, platforms, and blockchain services, with full
             control over your identity.
           </p>
-          <Button className="z-50 text-white font-bold min-w-[204px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-current cursor-pointer bg-[linear-gradient(88deg,_#157BEB_0.65%,_#C790F3_105.42%)] font-plus-jakarta">
-            Get Started
-          </Button>
+
+          <div className="z-50">
+            <ConnectButton.Custom>
+              {({
+                account,
+                chain,
+                openChainModal,
+                openConnectModal,
+                authenticationStatus,
+                mounted,
+              }) => {
+                const ready = mounted && authenticationStatus !== "loading";
+                const connected =
+                  ready &&
+                  account &&
+                  chain &&
+                  (!authenticationStatus ||
+                    authenticationStatus === "authenticated");
+
+                return (
+                  <div
+                    {...(!ready && {
+                      "aria-hidden": true,
+                      style: {
+                        opacity: 0,
+                        pointerEvents: "none",
+                        userSelect: "none",
+                      },
+                    })}
+                  >
+                    {(() => {
+                      if (!connected) {
+                        return (
+                          <Button
+                            onClick={openConnectModal}
+                            className="z-50 text-white font-bold min-w-[204px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-current cursor-pointer bg-[linear-gradient(88deg,_#157BEB_0.65%,_#C790F3_105.42%)] font-plus-jakarta"
+                          >
+                            Get Started
+                          </Button>
+                        );
+                      }
+
+                      if (connected) {
+                        return (
+                          <Button className="z-50 text-white font-bold min-w-[204px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-current cursor-pointer bg-[linear-gradient(88deg,_#157BEB_0.65%,_#C790F3_105.42%)] font-plus-jakarta">
+                            Connected
+                          </Button>
+                        );
+                      }
+
+                      if (chain.unsupported) {
+                        return (
+                          <button onClick={openChainModal} type="button">
+                            Wrong network
+                          </button>
+                        );
+                      }
+                    })()}
+                  </div>
+                );
+              }}
+            </ConnectButton.Custom>
+          </div>
 
           <Image
             src={WavePattern}
             alt="wave_pattern"
-            className="absolute inset-0 w-full h-full object-cover z-10"
+            className="absolute inset-0 w-full h-full z-10"
           />
           <div className="relative w-96">
             <div className="absolute -left-20 bottom-0">

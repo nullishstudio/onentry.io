@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { WaveFooterPattern } from "@/assets";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Footer() {
   return (
@@ -21,9 +22,69 @@ export default function Footer() {
         <p className=" font-plus-jakarta footer_desc_gradient text-base font-medium max-w-[500px]">
           Connect your wallet and take control of your digital identity.
         </p>
-        <Button className="z-50 font-medium min-w-[148px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-white cursor-pointer bg-white text-[#7880E9] font-plus-jakarta">
-          Connect Wallet
-        </Button>
+        <div className="z-50">
+          <ConnectButton.Custom>
+            {({
+              account,
+              chain,
+              openChainModal,
+              openConnectModal,
+              authenticationStatus,
+              mounted,
+            }) => {
+              const ready = mounted && authenticationStatus !== "loading";
+              const connected =
+                ready &&
+                account &&
+                chain &&
+                (!authenticationStatus ||
+                  authenticationStatus === "authenticated");
+
+              return (
+                <div
+                  {...(!ready && {
+                    "aria-hidden": true,
+                    style: {
+                      opacity: 0,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                    },
+                  })}
+                >
+                  {(() => {
+                    if (!connected) {
+                      return (
+                        <Button
+                          onClick={openConnectModal}
+                          className="z-50 font-medium min-w-[148px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-white cursor-pointer bg-white text-[#7880E9] font-plus-jakarta"
+                        >
+                          Connect Wallet
+                        </Button>
+                      );
+                    }
+
+                    if (connected) {
+                      return (
+                        <Button className="z-50 font-medium min-w-[148px] h-12 py-4 px-5 mt-6 rounded-xl hover:bg-white cursor-pointer bg-white text-[#7880E9] font-plus-jakarta">
+                          Connected
+                        </Button>
+                      );
+                    }
+
+                    if (chain.unsupported) {
+                      return (
+                        <button onClick={openChainModal} type="button">
+                          Wrong network
+                        </button>
+                      );
+                    }
+                  })()}
+                </div>
+              );
+            }}
+          </ConnectButton.Custom>
+        </div>
+
         <div className="my-4">
           <p className="text-[#F3F3F3CC] font-plus-jakarta">
             All rights reserved &copy; {new Date().getFullYear()} Onentry by

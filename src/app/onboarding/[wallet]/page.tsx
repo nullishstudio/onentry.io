@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import AppButton from "@/components/button";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -31,6 +32,8 @@ const formSchema = z.object({
 });
 
 export default function Onboarding() {
+  const params = useParams();
+  const wallet = params.wallet;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -115,7 +118,7 @@ export default function Onboarding() {
         </div>
       </div>
       <div className="bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)] min-h-[976px] w-full rounded-[32px]"></div>
-      <Dialog defaultOpen={true}>
+      <Dialog defaultOpen={wallet ? true : false}>
         {/* <DialogTrigger asChild>
           <Button variant="outline" className="hidden">
             Share
