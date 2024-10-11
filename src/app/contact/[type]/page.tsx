@@ -10,14 +10,14 @@ import { useQuery } from "@tanstack/react-query";
 const ContactLinksComponent = () => {
   const param = useParams();
 
-  const fetchUserContact = async () => {
-    const res = await axiosInstance.get(apiRoutes.CONTACT);
+  const fetchProfile = async () => {
+    const res = await axiosInstance.get(apiRoutes.USER);
     return res.data;
   };
 
   const { data } = useQuery({
-    queryKey: ["usercontact"],
-    queryFn: () => fetchUserContact(),
+    queryKey: ["userProfiles"],
+    queryFn: () => fetchProfile(),
     retry: false,
     refetchInterval: false,
     refetchOnMount: false,

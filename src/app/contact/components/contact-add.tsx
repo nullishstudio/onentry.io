@@ -29,8 +29,8 @@ const formSchema = z.object({
 interface DataProps {
   data: {
     id: string;
-    label: string;
-    value: string;
+    email: string;
+    phone: string;
   };
 }
 
@@ -46,17 +46,24 @@ const ContactAddLinksComponent = ({ data }: DataProps) => {
 
   useEffect(() => {
     form.reset({
-      value: data?.value,
+      value: param.type === "email" ? data?.email : data?.phone,
     });
-  }, [data?.value, form]);
+  }, [data?.email, data?.phone, form, param]);
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: ["createcontact"],
     mutationFn: async (values: z.infer<typeof formSchema>) => {
-      await axiosInstance.post(apiRoutes.CONTACT, {
-        label: param.type === "email" ? "Email Address" : "Phone Number",
-        value: values?.value,
-      });
+      if (param.type === "email") {
+        await axiosInstance.patch(apiRoutes.USER, {
+          email: values?.value,
+        });
+      }
+
+      if (param.type === "phone") {
+        await axiosInstance.patch(apiRoutes.USER, {
+          phone: values?.value,
+        });
+      }
     },
     onSuccess: () => {
       toast.success("Link added successfully");
