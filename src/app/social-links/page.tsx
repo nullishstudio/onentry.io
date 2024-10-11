@@ -1,6 +1,4 @@
-import { SampleUser } from "@/assets";
 import Dashboardlayout from "@/layout/dashboardlayout";
-import Image from "next/image";
 import SocialLinksComponent from "./components/social-links";
 import ProfileBox from "@/components/profilebox";
 

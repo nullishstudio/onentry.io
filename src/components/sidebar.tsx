@@ -6,8 +6,6 @@ import {
   Link as Linkx,
   Link21,
   Sms,
-  Gameboy,
-  GalleryEdit,
 } from "iconsax-react";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
