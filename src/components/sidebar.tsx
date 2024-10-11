@@ -50,11 +50,11 @@ const Sidebar = () => {
       url: "/contact",
       icon: <Sms size="18" variant="Outline" />,
     },
-    {
+    /*  {
       name: "Interests",
       url: "/interests",
       icon: <Gameboy size="18" variant="Outline" />,
-    },
+    }, */
     /*  {
       name: "Photos",
       url: "/photos",

@@ -13,6 +13,11 @@ import {
 import TextInput from "@/components/input";
 import { Textarea } from "@/components/ui/textarea";
 import AppButton from "@/components/button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "@/service/api.service";
+import { apiRoutes } from "@/service/api.route";
+import { toast } from "sonner";
+import Spinner from "@/components/spinner";
 
 const formSchema = z.object({
   url: z.string().min(2, {
@@ -27,6 +32,7 @@ const formSchema = z.object({
 });
 
 const AddLinksComponent = () => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,10 +42,28 @@ const AddLinksComponent = () => {
     },
   });
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationKey: ["updateportfolio"],
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      await axiosInstance.post(apiRoutes.PORTFOLIO, {
+        url: values?.url,
+        title: values?.title,
+        description: values?.description,
+      });
+    },
+    onSuccess: () => {
+      toast.success("Link added successfully");
+      queryClient.refetchQueries({
+        queryKey: ["basicprofile"],
+      });
+    },
+    onError: () => {
+      toast("Something went wrong");
+    },
+  });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    mutateAsync(values);
   }
   return (
     <div className="mt-1 grid gap-3">
@@ -99,7 +123,8 @@ const AddLinksComponent = () => {
             )}
           />
           <div className="flex flex-col self-end justify-end relative">
-            <AppButton text="Save" className="mt-5" />
+            {!isPending && <AppButton text="Save" className="mt-5" />}
+            {isPending && <Spinner />}
           </div>
         </form>
       </Form>

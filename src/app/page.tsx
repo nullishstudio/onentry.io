@@ -45,7 +45,6 @@ export default function Home() {
     if (res.status === 201 || res.status === 200) {
       localStorage.setItem("onentry_token", res.data.data.token);
       toast.success(res.data.message);
-      router.push("/dashboard");
     } else {
       toast.error("Something went wrong! Please try again.");
     }

@@ -3,17 +3,28 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import { OnentryIoLogo } from "@/assets";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Link from "next/link";
 import { useAccount } from "wagmi";
+import { useEffect } from "react";
 
 export default function TopNavigation() {
-  const account = useAccount();
-  console.log(account.address);
+  const token =
+    typeof window !== "undefined" && localStorage.getItem("onentry_token");
+
+  const { address } = useAccount();
+
+  useEffect(() => {
+    if (!address) {
+      localStorage.removeItem("onentry_token");
+    }
+  }, [address]);
+
   return (
     <div className="flex items-center justify-between my-0 mx-auto md:max-w-[1440px] w-[90%] py-6 h-20">
       <div className="logo cursor-pointer">
         <Image src={OnentryIoLogo} alt="onentryio" />
       </div>
-      <div className="connection_btn">
+      <div className="connection_btn flex gap-3 items-center">
         <ConnectButton.Custom>
           {({
             account,
@@ -52,14 +63,6 @@ export default function TopNavigation() {
                       >
                         Connect Wallet
                       </Button>
-                    );
-                  }
-
-                  if (chain.unsupported) {
-                    return (
-                      <button onClick={openChainModal} type="button">
-                        Wrong network
-                      </button>
                     );
                   }
 
@@ -115,6 +118,23 @@ export default function TopNavigation() {
             );
           }}
         </ConnectButton.Custom>
+        {token && (
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-6 rounded-xl"
+              style={{
+                background:
+                  "linear-gradient(to bottom right, #3665FF 0%, #4A1882 50%) bottom right / 50% 50% no-repeat, linear-gradient(to bottom left, #3665FF 0%, #4A1882 50%) bottom left / 50% 50% no-repeat, linear-gradient(to top left, #3665FF 0%, #4A1882 50%) top left / 50% 50% no-repeat, linear-gradient(to top right, #3665FF 0%, #4A1882 50%) top right / 50% 50% no-repeat",
+              }}
+            ></div>
+            <Link
+              href="/dashboard"
+              className="text-sm font-plus-jakarta font-medium"
+            >
+              Dashboard
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
