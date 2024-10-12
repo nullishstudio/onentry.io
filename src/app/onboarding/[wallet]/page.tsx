@@ -45,13 +45,12 @@ const formSchema = z.object({
   }),
 });
 
-const fetchBaseRecords = async () => {
-  const address = "0x8c8F1a1e1bFdb15E7ed562efc84e5A588E68aD73";
-  const basename: any = await getBasename(
-    typeof address !== "undefined" ? address : "0x${string}"
-  );
+const fetchBaseRecords = async (
+  address: string | `0x${string}` | undefined
+) => {
+  const basename: any = await getBasename(address as any);
   if (basename === undefined) {
-    toast.error("failed to resolve address to name");
+    toast.error("Failed to resolve address to name");
   }
 
   const avatar = await getBasenameAvatar(basename);
@@ -110,6 +109,7 @@ export default function Onboarding() {
   const router = useRouter();
   const params = useParams();
   const wallet: any = params.wallet;
+  const { address } = useAccount();
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -146,7 +146,7 @@ export default function Onboarding() {
   const handleFetchRecords = async () => {
     setLoading(true);
     try {
-      const data = await fetchBaseRecords();
+      const data = await fetchBaseRecords(address);
       if (data.basename) {
         const res = await axiosInstance.patch(apiRoutes.USER, {
           ...data,
@@ -238,6 +238,12 @@ export default function Onboarding() {
               />
               {!isPending && <AppButton text="Save" className="mt-5" />}
               {isPending && <Spinner />}
+              <Link
+                href="/dashboard"
+                className="text-base underline text-center font-plus-jakarta text-[#667085] mt-4"
+              >
+                I'll do this later
+              </Link>
             </form>
           </Form>
         </div>
