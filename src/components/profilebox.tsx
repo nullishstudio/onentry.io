@@ -4,13 +4,15 @@ import { apiRoutes } from "@/service/api.route";
 import { useQuery } from "@tanstack/react-query";
 import { SampleUser } from "@/assets";
 import Image from "next/image";
-import { RiTwitterXFill } from "react-icons/ri";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaFacebook } from "react-icons/fa6";
-import { SiFarcaster } from "react-icons/si";
 import Link from "next/link";
 import { Link2 } from "iconsax-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { RiTwitterXFill } from "react-icons/ri";
+import { FaTelegramPlane } from "react-icons/fa";
+import { SiFarcaster } from "react-icons/si";
+import { Chainlink, InfoCircle } from "iconsax-react";
+import { Github, Link as LinkURL } from "lucide-react";
+import { AiOutlineDiscord } from "react-icons/ai";
 
 const ProfileBox = () => {
   const fetchUserProfile = async () => {
@@ -30,23 +32,39 @@ const ProfileBox = () => {
   const socialLinks = [
     {
       name: "Farcaster",
-      icon: <SiFarcaster width={24} size={24} color="#7880E9" />,
-      url: "",
+      icon: <SiFarcaster width={22} size={22} color="#7880E9" />,
+      connected: data?.farcaster,
+      url: data?.farcaster,
     },
     {
       name: "Twitter",
-      icon: <RiTwitterXFill width={24} size={24} color="#7880E9" />,
-      url: "",
+      icon: <RiTwitterXFill width={22} size={22} color="#7880E9" />,
+      connected: data?.twitter,
+      url: data?.twitter,
     },
     {
-      name: "Instagram",
-      icon: <AiFillInstagram width={24} size={24} color="#7880E9" />,
-      url: "",
+      name: "GitHub",
+      icon: <Github width={22} size={22} color="#7880E9" />,
+      connected: data?.github,
+      url: data?.github,
     },
     {
-      name: "Facebook",
-      icon: <FaFacebook width={24} size={24} color="#7880E9" />,
-      url: "",
+      name: "Telegram",
+      icon: <FaTelegramPlane width={22} size={22} color="#7880E9" />,
+      connected: data?.telegram,
+      url: data?.telegram,
+    },
+    {
+      name: "Discord",
+      icon: <AiOutlineDiscord width={22} size={22} color="#7880E9" />,
+      connected: data?.discord,
+      url: data?.discord,
+    },
+    {
+      name: "URL",
+      icon: <LinkURL width={22} size="22" color="#7880E9" />,
+      connected: data?.url,
+      url: data?.url,
     },
   ] as const;
 
@@ -86,14 +104,13 @@ const ProfileBox = () => {
           {!isLoading && <>{data?.bio}</>}
         </p>
         <div className="flex items-center gap-[10px]">
-          {data?.social?.length > 0 &&
-            socialLinks.map(({ icon, url }, idx) => (
-              <Link key={idx} href={url}>
-                <button key={idx} className="">
-                  {icon}
-                </button>
-              </Link>
-            ))}
+          {socialLinks.map(({ icon, url }, idx) => (
+            <Link key={idx} href={url ? url : "#"}>
+              <button key={idx} className="text-[#7880E9]">
+                {icon}
+              </button>
+            </Link>
+          ))}
         </div>
         <div className="bg-[#EAECF0] h-[1px] w-full my-3" />
         <div className="grid grid-cols-3 gap-3">

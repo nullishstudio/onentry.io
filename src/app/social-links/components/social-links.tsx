@@ -1,30 +1,58 @@
 "use client";
 import { RiTwitterXFill } from "react-icons/ri";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaFacebook } from "react-icons/fa6";
+import { FaTelegramPlane } from "react-icons/fa";
 import { SiFarcaster } from "react-icons/si";
+import { InfoCircle } from "iconsax-react";
+import { Github, Link } from "lucide-react";
+import { AiOutlineDiscord } from "react-icons/ai";
 
-const SocialLinksComponent = () => {
+interface SocialProps {
+  data: {
+    twitter: string;
+    github: string;
+    farcaster: string;
+    telegram: string;
+    discord: string;
+    url: string;
+  };
+}
+
+const SocialLinksComponent = ({ data }: SocialProps) => {
   const socialLinks = [
     {
       name: "Farcaster",
-      icon: <SiFarcaster width={22} size={22} color="#000" />,
-      comingSoon: true,
+      icon: <SiFarcaster width={22} size={22} color="#7880E9" />,
+      connected: data?.farcaster,
     },
     {
       name: "Twitter",
-      icon: <RiTwitterXFill width={22} size={22} color="#000" />,
-      comingSoon: true,
+      icon: <RiTwitterXFill width={22} size={22} color="#7880E9" />,
+      connected: data?.twitter,
+      url: data?.twitter,
     },
     {
-      name: "Instagram",
-      icon: <AiFillInstagram width={22} size={22} color="#000" />,
-      comingSoon: true,
+      name: "GitHub",
+      icon: <Github width={22} size={22} color="#7880E9" />,
+      connected: data?.github,
+      url: data?.github,
     },
     {
-      name: "Facebook",
-      icon: <FaFacebook width={22} size={22} color="#000" />,
-      comingSoon: true,
+      name: "Telegram",
+      icon: <FaTelegramPlane width={22} size={22} color="#7880E9" />,
+      connected: data?.telegram,
+      url: data?.telegram,
+    },
+    {
+      name: "Discord",
+      icon: <AiOutlineDiscord width={22} size={22} color="#7880E9" />,
+      connected: data?.discord,
+      url: data?.discord,
+    },
+    {
+      name: "URL",
+      icon: <Link width={22} size="22" color="#7880E9" />,
+      connected: data?.url,
+      url: data?.url,
     },
   ] as const;
 
@@ -34,9 +62,16 @@ const SocialLinksComponent = () => {
         Connect your profiles and share your social presence. Add as many social
         links as you like to showcase all your platforms.
       </p>
+      <div className="text-xs text-[#090a0b] flex gap-2 font-plus-jakarta">
+        <div>
+          <InfoCircle size="14" width={20} variant="Bold" color="green" />
+        </div>
+        Your social profile is automatically fetched using basename if connected
+        during setup. Manual connection is still base(ing) soon!
+      </div>
       <div className="bg-[#EAECF0] h-[1px] w-full my-5" />
       <div className="grid gap-3">
-        {socialLinks.map(({ name, icon, comingSoon }, idx) => (
+        {socialLinks.map(({ name, icon, connected }, idx) => (
           <div className="flex w-full items-center justify-between bg-white py-4 px-5 min-h-[51px] rounded-xl">
             <button
               key={idx}
@@ -46,7 +81,8 @@ const SocialLinksComponent = () => {
               {name}
             </button>
             <div className="border rounded-[6px] text-xs text-[#667085] cursor-pointer py-[6px] px-2 font-plus-jakarta border-[#EAECF0] hover:bg-[linear-gradient(91deg,_#FCE4FF_2.91%,_#FFEBD7_99.03%)] hover:border-[#FCE4FF]">
-              {comingSoon && "Coming soon"}
+              {connected && "Connected"}
+              {!connected && "Not Connected"}
             </div>
           </div>
         ))}
