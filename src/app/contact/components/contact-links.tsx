@@ -1,10 +1,6 @@
 "use client";
 import { Call, Sms } from "iconsax-react";
 import Link from "next/link";
-import { axiosInstance } from "@/service/api.service";
-import { apiRoutes } from "@/service/api.route";
-import { useQuery } from "@tanstack/react-query";
-import Spinner from "@/components/spinner";
 
 const ContactLinksComponent = () => {
   const socialLinks = [

@@ -87,7 +87,7 @@ const ProfileBox = () => {
         </p>
         <div className="flex items-center gap-[10px]">
           {data?.social?.length > 0 &&
-            socialLinks.map(({ name, icon, url }, idx) => (
+            socialLinks.map(({ icon, url }, idx) => (
               <Link key={idx} href={url}>
                 <button key={idx} className="">
                   {icon}
