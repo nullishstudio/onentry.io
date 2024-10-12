@@ -94,7 +94,7 @@ export default function TopNavigation() {
                       <button
                         onClick={openAccountModal}
                         type="button"
-                        className="rounded-[14px] w-[88px] p-2 bg-[linear-gradient(91deg,_#FCE4FF_2.91%,_#FFEBD7_99.03%)] text-sm font-plus-jakarta"
+                        className="rounded-[14px] p-2 bg-[linear-gradient(91deg,_#FCE4FF_2.91%,_#FFEBD7_99.03%)] text-sm font-plus-jakarta"
                       >
                         {`${account.address.slice(
                           0,

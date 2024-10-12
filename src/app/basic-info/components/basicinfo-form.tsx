@@ -60,7 +60,7 @@ const BasicInfoForm = ({ data }: DataProps) => {
   }, [data?.bio, data?.fullname, data?.username, form]);
 
   const { mutateAsync, isPending } = useMutation({
-    mutationKey: ["updateProfile"],
+    mutationKey: ["updatebasicInfomationProfile"],
     mutationFn: async (values: z.infer<typeof formSchema>) => {
       await axiosInstance.patch(apiRoutes.USER, {
         fullname: values?.fullname,
