@@ -24,6 +24,14 @@ import { apiRoutes } from "@/service/api.route";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Spinner from "@/components/spinner";
+import {
+  BasenameTextRecordKeys,
+  getBasename,
+  getBasenameAvatar,
+  getBasenameTextRecord,
+} from "@/apis/basenames";
+import { useAccount } from "wagmi";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -37,10 +45,73 @@ const formSchema = z.object({
   }),
 });
 
+const fetchBaseRecords = async () => {
+  const address = "0x8c8F1a1e1bFdb15E7ed562efc84e5A588E68aD73";
+  const basename: any = await getBasename(
+    typeof address !== "undefined" ? address : "0x${string}"
+  );
+  if (basename === undefined) {
+    toast.error("failed to resolve address to name");
+  }
+
+  const avatar = await getBasenameAvatar(basename);
+  const description = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Description
+  );
+
+  const twitter = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Twitter
+  );
+
+  const url = await getBasenameTextRecord(basename, BasenameTextRecordKeys.Url);
+
+  const github = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Github
+  );
+
+  const email = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Email
+  );
+
+  const farcaster = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Farcaster
+  );
+
+  const telegram = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Telegram
+  );
+
+  const discord = await getBasenameTextRecord(
+    basename,
+    BasenameTextRecordKeys.Discord
+  );
+
+  return {
+    basename,
+    avatar,
+    description,
+    twitter,
+    github,
+    email,
+    farcaster,
+    telegram,
+    discord,
+    url,
+  };
+};
+
 export default function Onboarding() {
   const router = useRouter();
   const params = useParams();
-  const wallet = params.wallet;
+  const wallet: any = params.wallet;
+  const [loading, setLoading] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,6 +142,35 @@ export default function Onboarding() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     mutateAsync(values);
   }
+
+  const handleFetchRecords = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchBaseRecords();
+      if (data.basename) {
+        const res = await axiosInstance.patch(apiRoutes.USER, {
+          ...data,
+          bio: data.description,
+        });
+        await axiosInstance.post(apiRoutes.BASEAVATAR, {
+          baseAvatarUrl: data?.avatar,
+        });
+
+        if (res.status === 200 || res.status === 201) {
+          toast.success("Set up through base was successful", {
+            position: "top-right",
+          });
+          router.push("/dashboard");
+        } else {
+          toast.error("Error setting up profile through basename");
+        }
+      }
+    } catch (error) {
+      setLoading(false);
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="flex justify-between items-center min-h-dvh p-6">
       <div className="flex flex-col w-full ml-14">
@@ -157,7 +257,15 @@ export default function Onboarding() {
           </p>
           <div className="text-center">
             <div className="grid flex-1 gap-2 mt-2">
-              <AppButton text="Continue with Basename" />
+              {loading && <Spinner />}
+              {!loading && (
+                <Button
+                  onClick={handleFetchRecords}
+                  className="min-w-[120px] w-full min-h-14 py-[18px] px-5 rounded-xl bg-[#7880E9] hover:bg-[#7880E9] font-plus-jakarta text-base font-bold"
+                >
+                  Set Up With Basename
+                </Button>
+              )}
               <DialogClose asChild>
                 <Button
                   variant={undefined}

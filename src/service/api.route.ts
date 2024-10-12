@@ -7,6 +7,7 @@ const GET_ALL_AVATARS = "avatar";
 const CONTACT = "contact";
 const PORTFOLIO = "portfolio";
 const USER = "user";
+const BASEAVATAR = "avatar/base";
 
 export const apiRoutes = {
   CREATE_ACCOUNT,
@@ -18,4 +19,5 @@ export const apiRoutes = {
   CONTACT,
   PORTFOLIO,
   USER,
+  BASEAVATAR,
 };
