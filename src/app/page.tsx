@@ -34,6 +34,11 @@ export default function Home() {
     if (res.data.statusCode === 404) {
       return await createWalletAddress();
     } else {
+      const token = localStorage.getItem("onentry_token");
+      if (token) {
+        console.log("Already authenticated!");
+        return;
+      }
       return loginWalletAddress();
     }
   };

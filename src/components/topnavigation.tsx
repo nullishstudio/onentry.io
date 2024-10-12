@@ -4,20 +4,10 @@ import Image from "next/image";
 import { OnentryIoLogo } from "@/assets";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
-import { useAccount } from "wagmi";
-import { useEffect } from "react";
 
 export default function TopNavigation() {
   const token =
     typeof window !== "undefined" && localStorage.getItem("onentry_token");
-
-  const { address } = useAccount();
-
-  useEffect(() => {
-    if (!address) {
-      localStorage.removeItem("onentry_token");
-    }
-  }, [address]);
 
   return (
     <div className="flex items-center justify-between my-0 mx-auto md:max-w-[1440px] w-[90%] py-6 h-20">
