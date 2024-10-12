@@ -1,12 +1,5 @@
 "use client";
-import {
-  ProfileCircle,
-  TextBlock,
-  User,
-  Link as Linkx,
-  Link21,
-  Sms,
-} from "iconsax-react";
+import { ProfileCircle, User, Link as Linkx, Link21, Sms } from "iconsax-react";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

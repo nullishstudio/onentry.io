@@ -72,7 +72,10 @@ const SocialLinksComponent = ({ data }: SocialProps) => {
       <div className="bg-[#EAECF0] h-[1px] w-full my-5" />
       <div className="grid gap-3">
         {socialLinks.map(({ name, icon, connected }, idx) => (
-          <div className="flex w-full items-center justify-between bg-white py-4 px-5 min-h-[51px] rounded-xl">
+          <div
+            key={idx}
+            className="flex w-full items-center justify-between bg-white py-4 px-5 min-h-[51px] rounded-xl"
+          >
             <button
               key={idx}
               className="text-base font-plus-jakarta font-medium text-[#667085] flex items-center gap-2"

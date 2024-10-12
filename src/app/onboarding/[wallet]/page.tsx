@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -168,6 +169,7 @@ export default function Onboarding() {
       }
     } catch (error) {
       setLoading(false);
+      throw error;
     }
     setLoading(false);
   };

@@ -10,7 +10,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaTelegramPlane } from "react-icons/fa";
 import { SiFarcaster } from "react-icons/si";
-import { Chainlink, InfoCircle } from "iconsax-react";
 import { Github, Link as LinkURL } from "lucide-react";
 import { AiOutlineDiscord } from "react-icons/ai";
 
