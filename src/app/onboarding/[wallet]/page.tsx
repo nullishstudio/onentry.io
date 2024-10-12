@@ -154,6 +154,7 @@ export default function Onboarding() {
         });
         await axiosInstance.post(apiRoutes.BASEAVATAR, {
           baseAvatarUrl: data?.avatar,
+          username: data?.basename,
         });
 
         if (res.status === 200 || res.status === 201) {
