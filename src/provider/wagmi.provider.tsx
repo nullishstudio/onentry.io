@@ -3,7 +3,6 @@ import { http, WagmiProvider } from "wagmi";
 import { base } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { ReactNode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const config = getDefaultConfig({
   appName: "Onentry",
@@ -16,12 +15,9 @@ const config = getDefaultConfig({
 });
 
 const Web3Provider = ({ children }: { children: ReactNode }) => {
-  const queryClient = new QueryClient();
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>{children}</RainbowKitProvider>
-      </QueryClientProvider>
+      <RainbowKitProvider>{children}</RainbowKitProvider>
     </WagmiProvider>
   );
 };

@@ -27,6 +27,7 @@ const ProfileBox = () => {
     refetchInterval: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    staleTime: 0,
   });
 
   const socialLinks = [
