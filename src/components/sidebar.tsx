@@ -28,11 +28,11 @@ const Sidebar = () => {
       url: "/avatar",
       icon: <ProfileCircle size="18" variant="Outline" />,
     },
-    {
+    /* {
       name: "Wallet Addresses (coming soon!)",
-      url: "/wallet-address",
+      url: "#",
       icon: <TextBlock size="18" variant="Outline" />,
-    },
+    }, */
     {
       name: "Connect Social Links",
       url: "/social-links",

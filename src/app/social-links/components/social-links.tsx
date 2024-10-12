@@ -9,18 +9,22 @@ const SocialLinksComponent = () => {
     {
       name: "Farcaster",
       icon: <SiFarcaster width={22} size={22} color="#000" />,
+      comingSoon: true,
     },
     {
       name: "Twitter",
       icon: <RiTwitterXFill width={22} size={22} color="#000" />,
+      comingSoon: true,
     },
     {
       name: "Instagram",
       icon: <AiFillInstagram width={22} size={22} color="#000" />,
+      comingSoon: true,
     },
     {
       name: "Facebook",
       icon: <FaFacebook width={22} size={22} color="#000" />,
+      comingSoon: true,
     },
   ] as const;
 
@@ -32,14 +36,19 @@ const SocialLinksComponent = () => {
       </p>
       <div className="bg-[#EAECF0] h-[1px] w-full my-5" />
       <div className="grid gap-3">
-        {socialLinks.map(({ name, icon }, idx) => (
-          <button
-            key={idx}
-            className="rounded-xl bg-white text-base font-plus-jakarta font-medium text-[#667085] py-4 px-5 min-h-[51px] flex items-center gap-2"
-          >
-            {icon}
-            {name}
-          </button>
+        {socialLinks.map(({ name, icon, comingSoon }, idx) => (
+          <div className="flex w-full items-center justify-between bg-white py-4 px-5 min-h-[51px] rounded-xl">
+            <button
+              key={idx}
+              className="text-base font-plus-jakarta font-medium text-[#667085] flex items-center gap-2"
+            >
+              {icon}
+              {name}
+            </button>
+            <div className="border rounded-[6px] text-xs text-[#667085] cursor-pointer py-[6px] px-2 font-plus-jakarta border-[#EAECF0] hover:bg-[linear-gradient(91deg,_#FCE4FF_2.91%,_#FFEBD7_99.03%)] hover:border-[#FCE4FF]">
+              {comingSoon && "Coming soon"}
+            </div>
+          </div>
         ))}
       </div>
     </div>
