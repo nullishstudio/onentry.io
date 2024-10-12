@@ -15,7 +15,7 @@ const BasicInfo = () => {
 
   const { data } = useQuery({
     queryKey: ["basicinformationprofile"],
-    queryFn: () => fetchUserProfile(),
+    queryFn: fetchUserProfile,
     retry: false,
     refetchInterval: false,
     refetchOnMount: false,
