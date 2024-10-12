@@ -22,10 +22,33 @@ import { axiosInstance } from "@/service/api.service";
 import { apiRoutes } from "@/service/api.route";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const { address } = useAccount();
   const router = useRouter();
+
+  const [isInView, setIsInView] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
 
   const verifyWalletAddress = async () => {
     const res = await axiosInstance.get(
@@ -159,15 +182,21 @@ export default function Home() {
             alt="wave_pattern"
             className="absolute inset-0 w-full h-full z-10"
           />
-          <div className="relative w-96">
-            <div className="absolute -left-20 bottom-0">
+          <div className="relative w-96" ref={ref}>
+            <div
+              className={`absolute -left-20 bottom-0 transition-transform duration-3000 ease-in-out ${
+                isInView ? "animate-profile-left" : ""
+              }`}
+            >
               <Image src={ClementProfile} alt="base_profile" />
             </div>
             <div>
               <Image
                 src={BombosProfile}
                 alt="base_profile"
-                className="absolute left-20 bottom-0"
+                className={`absolute left-20 bottom-0 transition-transform duration-3000 ease-in-out ${
+                  isInView ? "animate-profile-right" : ""
+                }`}
               />
             </div>
             <div className="z-50 relative">

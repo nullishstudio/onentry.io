@@ -20,7 +20,7 @@ const ProfileBox = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["basicprofile"],
+    queryKey: ["fulluser"],
     queryFn: () => fetchUserProfile(),
     retry: false,
     refetchInterval: false,

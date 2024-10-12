@@ -33,6 +33,8 @@ import {
 } from "@/apis/basenames";
 import { useAccount } from "wagmi";
 import { useState } from "react";
+import { OnboardingBanner } from "@/assets";
+import Image from "next/image";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -242,7 +244,7 @@ export default function Onboarding() {
               {isPending && <Spinner />}
               <Link
                 href="/dashboard"
-                className="text-base underline text-center font-plus-jakarta text-[#667085] mt-4"
+                className="text-sm underline text-center font-plus-jakarta text-[#667085] mt-4"
               >
                 I'll do this later
               </Link>
@@ -250,7 +252,20 @@ export default function Onboarding() {
           </Form>
         </div>
       </div>
-      <div className="bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)] min-h-[976px] w-full rounded-[32px]"></div>
+      <div className="bg-[linear-gradient(216deg,_#FFF1E5_0%,_#F2ECFF_100%)] min-h-[976px] w-full rounded-[32px] flex flex-col">
+        <h3 className="font-bricolage-grotesque font-bold text-[#6E76DE] text-5xl p-14">
+          Your Web3 Profile, Everywhere
+        </h3>
+        <div className="flex-grow flex flex-col justify-end rounded-[32px] bg-[linear-gradient(180deg,_#FFFFFF00_32.09%,_#15111F_100%)]">
+          <Image
+            src={OnboardingBanner}
+            alt="Web3 Profile Banner"
+            width={800}
+            height={400}
+            className="w-full rounded-[32px] opacity-30"
+          />
+        </div>
+      </div>
       <Dialog defaultOpen={wallet ? true : false}>
         {/* <DialogTrigger asChild>
           <Button variant="outline" className="hidden">
