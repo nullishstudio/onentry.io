@@ -20,3 +20,4 @@ export { default as UserAvatarOne } from "./svg/user_avatar_one.svg";
 export { default as UserAvatarTwo } from "./svg/user_avatar_two.svg";
 export { default as JetIcon } from "./svg/lets-icons_send-duotone.svg";
 export { default as OnboardingBanner } from "./svg/onboarding_banner.svg";
+export { default as UnknownCreator } from "./svg/unknown_creator.svg";

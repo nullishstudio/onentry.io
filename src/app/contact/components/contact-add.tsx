@@ -68,7 +68,7 @@ const ContactAddLinksComponent = ({ data }: DataProps) => {
     onSuccess: () => {
       toast.success("Link added successfully");
       queryClient.refetchQueries({
-        queryKey: ["basicprofile"],
+        queryKey: ["fulluser"],
       });
     },
     onError: () => {

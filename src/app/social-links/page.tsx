@@ -13,7 +13,7 @@ const SocialLinks = () => {
   };
 
   const { data } = useQuery({
-    queryKey: ["basicprofileforsocial"],
+    queryKey: ["fulluserforsocial"],
     queryFn: () => fetchUserProfile(),
     retry: false,
     refetchInterval: false,

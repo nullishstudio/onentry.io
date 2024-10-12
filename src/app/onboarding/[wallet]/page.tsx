@@ -154,10 +154,11 @@ export default function Onboarding() {
         const res = await axiosInstance.patch(apiRoutes.USER, {
           ...data,
           bio: data.description,
+          username: data?.basename,
+          fullname: data?.basename,
         });
         await axiosInstance.post(apiRoutes.BASEAVATAR, {
           baseAvatarUrl: data?.avatar,
-          username: data?.basename,
         });
 
         if (res.status === 200 || res.status === 201) {

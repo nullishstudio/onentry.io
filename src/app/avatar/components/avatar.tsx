@@ -66,7 +66,7 @@ const AvatarForm = () => {
     mutationFn: () => axiosInstance.patch(apiRoutes.SAVE_AVATAR, { avatarId }),
     onSuccess: () => {
       toast.success("PFP saved and would be used across all apps");
-      queryClient.refetchQueries({ queryKey: ["basicprofile"] });
+      queryClient.refetchQueries({ queryKey: ["fulluser"] });
     },
     onError: () => {
       toast.error("Something went wrong");

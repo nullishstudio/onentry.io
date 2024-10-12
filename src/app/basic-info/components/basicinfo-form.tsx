@@ -71,7 +71,7 @@ const BasicInfoForm = ({ data }: DataProps) => {
     onSuccess: () => {
       toast.success("Account updated successfully");
       queryClient.refetchQueries({
-        queryKey: ["basicprofile"],
+        queryKey: ["fulluser"],
       });
     },
     onError: () => {

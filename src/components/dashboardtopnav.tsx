@@ -16,7 +16,7 @@ export default function DashboardTopnav() {
   };
 
   const { data } = useQuery({
-    queryKey: ["basicprofile"],
+    queryKey: ["fulluser"],
     queryFn: () => fetchUserProfile(),
     retry: false,
     refetchInterval: false,
