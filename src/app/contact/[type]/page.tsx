@@ -17,7 +17,7 @@ const ContactLinksComponent = () => {
 
   const { data } = useQuery({
     queryKey: ["usercontactProfiles"],
-    queryFn: () => fetchProfile(),
+    queryFn: fetchProfile,
     retry: false,
     refetchInterval: false,
     refetchOnMount: false,

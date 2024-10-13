@@ -16,7 +16,7 @@ const MoreLinksComponent = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: ["fetchlinksportfolios"],
-    queryFn: () => fetchPorfolios(),
+    queryFn: fetchPorfolios,
     retry: false,
     refetchInterval: false,
     refetchOnMount: false,
