@@ -16,15 +16,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Spinner from "@/components/spinner";
 import { toast } from "sonner";
 import Moralis from "moralis";
 import { Skeleton } from "@/components/ui/skeleton";
 import Loader from "@/components/loader";
+import Spinner from "@/components/spinner";
 
 const AvatarForm = () => {
   const [uploading, setUploading] = useState(false);
   const [avatarId, setAvatarId] = useState<string>("");
+  const [nftUrl, setNftUrl] = useState<string | undefined>("");
+  const [open, setOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
@@ -127,7 +129,33 @@ const AvatarForm = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log(result);
+  const saveAndUploadNFTPicture = async () => {
+    const res = await axiosInstance.patch(apiRoutes.USER, {
+      avatarUrl: nftUrl,
+    });
+    return res.data;
+  };
+
+  const saveSelectedNft = useMutation({
+    mutationFn: () => saveAndUploadNFTPicture(),
+    mutationKey: ["savenfts"],
+    onSuccess: async () => {
+      toast.success("Nft uploaded as avatar successfully");
+      queryClient.refetchQueries({ queryKey: ["fulluser"] });
+      setOpen(false);
+    },
+    onError: () => {
+      toast.error("Something went wrong, please try again");
+    },
+  });
+
+  const handleSaveNft = () => {
+    if (nftUrl) {
+      saveSelectedNft.mutateAsync();
+    } else {
+      toast.error("Please select an nft first");
+    }
+  };
 
   return (
     <div className="mt-1 grid gap-3">
@@ -187,7 +215,7 @@ const AvatarForm = () => {
           </Button>
         </div>
 
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild className="w-full">
             <Button
               variant={undefined}
@@ -246,7 +274,16 @@ const AvatarForm = () => {
                               key={idx}
                               width={100}
                               height={144}
-                              className="w-full h-36 cursor-pointer rounded-[8px] hover:border-2 hover:border-[#7880E9] shadow-[#7880E9]"
+                              className={`${
+                                nftUrl ===
+                                  itm.media?.media_collection?.high.url &&
+                                "border-[2.2px] border-[#7880e9]"
+                              } w-full h-36 cursor-pointer rounded-[8px] hover:border-2 hover:border-[#7880E9] shadow-[#7880E9]`}
+                              onClick={() =>
+                                setNftUrl(
+                                  itm?.media?.media_collection?.high?.url
+                                )
+                              }
                             />
                           ))}
                     </>
@@ -254,15 +291,28 @@ const AvatarForm = () => {
                 </>
               </div>
             </div>
-            <DialogFooter className="my-4">
+            <DialogFooter className="my-4 flex items-center">
               <DialogClose asChild>
                 <Button className="border border-[#D9E2E7] rounded-xl text-[#212121] bg-white text-sm font-plus-jakarta font-medium w-full min-h-14 hover:bg-white">
                   Cancel
                 </Button>
               </DialogClose>
-              <Button className="text-sm font-medium font-plus-jakarta bg-[#7880E9] hover:bg-[#7880E9] min-w-[120px] w-full min-h-14 py-[18px] px-5 rounded-xl">
-                Choose & Set Avatar
-              </Button>
+              {saveSelectedNft.isPending && (
+                <Button
+                  className="w-full bg-white border-none shadow-none"
+                  type="button"
+                >
+                  <Spinner />
+                </Button>
+              )}
+              {!saveSelectedNft.isPending && (
+                <Button
+                  className="text-sm font-medium font-plus-jakarta bg-[#7880E9] hover:bg-[#7880E9] min-w-[120px] w-full min-h-14 py-[18px] px-5 rounded-xl"
+                  onClick={handleSaveNft}
+                >
+                  Choose & Set Avatar
+                </Button>
+              )}
             </DialogFooter>
           </DialogContent>
         </Dialog>
