@@ -35,7 +35,7 @@ const AvatarForm = () => {
       });
 
       const response = await Moralis.EvmApi.nft.getWalletNFTs({
-        chain: "0x2105",
+        chain: "0x2105", //base network
         format: "decimal",
         mediaItems: true,
         excludeSpam: true,
