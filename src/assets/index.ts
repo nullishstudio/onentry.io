@@ -1,4 +1,4 @@
-export { default as OnentryIoLogo } from "./svg/ONENTRY.svg";
+export { default as OnentryIoLogo } from "./svg/onentry_icon.svg";
 export { default as ProfileOne } from "./svg/profile_one.svg";
 export { default as ProfileTwo } from "./svg/profile_two.svg";
 export { default as ProfileThree } from "./svg/profile_three.svg";

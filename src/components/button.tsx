@@ -2,6 +2,7 @@ import { Button, ButtonProps } from "./ui/button";
 
 interface AppButtonProps extends ButtonProps {
   text: string;
+  className?: string;
 }
 
 export default function AppButton({ text, className }: AppButtonProps) {
