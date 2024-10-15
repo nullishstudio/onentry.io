@@ -21,6 +21,7 @@ import Moralis from "moralis";
 import { Skeleton } from "@/components/ui/skeleton";
 import Loader from "@/components/loader";
 import Spinner from "@/components/spinner";
+import { EmptyState } from "@/assets";
 
 const AvatarForm = () => {
   const [uploading, setUploading] = useState(false);
@@ -245,7 +246,7 @@ const AvatarForm = () => {
               </div>
             )}
             <div className="mt-4">
-              <div className="grid grid-cols-3 gap-4">
+              <div className={`${result?.result && "grid grid-cols-3 gap-4"}`}>
                 <>
                   {loading &&
                     Array(9)
@@ -286,6 +287,18 @@ const AvatarForm = () => {
                               }
                             />
                           ))}
+
+                      {/* No NFT */}
+                      <>
+                        {!result?.result && (
+                          <div className="flex flex-col items-center gap-2">
+                            <Image src={EmptyState} alt="empty_state" />
+                            <p className="font-plus-jakarta text-base font-medium text-[#667085]">
+                              You don’t have any NFTs
+                            </p>
+                          </div>
+                        )}
+                      </>
                     </>
                   )}
                 </>
@@ -299,19 +312,23 @@ const AvatarForm = () => {
               </DialogClose>
               {saveSelectedNft.isPending && (
                 <Button
-                  className="w-full bg-white border-none shadow-none"
+                  className="w-full bg-white hover:bg-white border-none shadow-none"
                   type="button"
                 >
                   <Spinner />
                 </Button>
               )}
-              {!saveSelectedNft.isPending && (
-                <Button
-                  className="text-sm font-medium font-plus-jakarta bg-[#7880E9] hover:bg-[#7880E9] min-w-[120px] w-full min-h-14 py-[18px] px-5 rounded-xl"
-                  onClick={handleSaveNft}
-                >
-                  Choose & Set Avatar
-                </Button>
+              {result?.result && (
+                <>
+                  {!saveSelectedNft.isPending && (
+                    <Button
+                      className="text-sm font-medium font-plus-jakarta bg-[#7880E9] hover:bg-[#7880E9] min-w-[120px] w-full min-h-14 py-[18px] px-5 rounded-xl"
+                      onClick={handleSaveNft}
+                    >
+                      Choose & Set Avatar
+                    </Button>
+                  )}
+                </>
               )}
             </DialogFooter>
           </DialogContent>
