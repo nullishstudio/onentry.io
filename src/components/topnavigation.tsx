@@ -5,11 +5,24 @@ import { OnentryIoLogo } from "@/assets";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import { useAccount } from "wagmi";
+import { useEffect, useState } from "react";
 
 export default function TopNavigation() {
-  const { address } = useAccount();
-  /*  const token =
-    typeof window !== "undefined" && localStorage.getItem("onentry_token"); */
+  const [show, setShow] = useState<boolean>(false);
+  const { address, isConnected, isDisconnected } = useAccount();
+  const token =
+    typeof window !== "undefined" && localStorage.getItem("onentry_token");
+  useEffect(() => {
+    if (isConnected) {
+      if (token) {
+        setShow(true);
+      }
+    }
+
+    if (isDisconnected) {
+      setShow(false);
+    }
+  }, [address, isConnected, token]);
 
   return (
     <div className="flex items-center justify-between my-0 mx-auto md:max-w-[1440px] w-[90%] py-6 h-20">
@@ -110,7 +123,7 @@ export default function TopNavigation() {
             );
           }}
         </ConnectButton.Custom>
-        {address && (
+        {show && (
           <div className="flex items-center gap-2">
             <div
               className="w-6 h-6 rounded-xl"
