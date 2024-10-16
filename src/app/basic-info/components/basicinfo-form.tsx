@@ -19,6 +19,7 @@ import { apiRoutes } from "@/service/api.route";
 import { toast } from "sonner";
 import Spinner from "@/components/spinner";
 import { useEffect } from "react";
+import { dispatchtoast } from "@/components/toast";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -69,7 +70,9 @@ const BasicInfoForm = ({ data }: DataProps) => {
       });
     },
     onSuccess: () => {
-      toast.success("Account updated successfully");
+      dispatchtoast({
+        text: "Account updated successfully",
+      });
       queryClient.refetchQueries({
         queryKey: ["fulluser"],
       });

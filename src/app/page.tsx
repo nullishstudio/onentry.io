@@ -23,6 +23,7 @@ import { apiRoutes } from "@/service/api.route";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useEffect, useRef, useState } from "react";
+import { dispatchtoast } from "@/components/toast";
 
 export default function Home() {
   const { address } = useAccount();
@@ -72,7 +73,9 @@ export default function Home() {
     });
     if (res.status === 201 || res.status === 200) {
       localStorage.setItem("onentry_token", res.data.data.token);
-      toast.success(res.data.message);
+      dispatchtoast({
+        text: res.data.message,
+      });
     } else {
       toast.error("Something went wrong! Please try again.");
     }
@@ -84,7 +87,9 @@ export default function Home() {
     });
     if (res.status === 201 || res.status === 200) {
       localStorage.setItem("onentry_token", res.data.data.token);
-      toast.success(res.data.message);
+      dispatchtoast({
+        text: res.data.message,
+      });
       router.push(`/onboarding/${address}`);
     } else {
       toast.error("Something went wrong! Please try again.");

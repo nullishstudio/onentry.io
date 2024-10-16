@@ -22,6 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Loader from "@/components/loader";
 import Spinner from "@/components/spinner";
 import { EmptyState } from "@/assets";
+import { dispatchtoast } from "@/components/toast";
 
 const AvatarForm = () => {
   const [uploading, setUploading] = useState(false);
@@ -68,7 +69,9 @@ const AvatarForm = () => {
   const uploadMutation = useMutation({
     mutationFn: (file: File) => uploadImage(file, apiRoutes.UPLOAD_AVATAR),
     onSuccess: (res) => {
-      toast.success(res.message);
+      dispatchtoast({
+        text: res.message,
+      });
       refetch();
     },
     onError: () => {
@@ -100,7 +103,9 @@ const AvatarForm = () => {
   const saveMutation = useMutation({
     mutationFn: () => axiosInstance.patch(apiRoutes.SAVE_AVATAR, { avatarId }),
     onSuccess: () => {
-      toast.success("PFP saved and would be used across all apps");
+      dispatchtoast({
+        text: "PFP saved and would be used across all apps",
+      });
       queryClient.refetchQueries({ queryKey: ["fulluser"] });
     },
     onError: () => {
@@ -141,7 +146,9 @@ const AvatarForm = () => {
     mutationFn: () => saveAndUploadNFTPicture(),
     mutationKey: ["savenfts"],
     onSuccess: async () => {
-      toast.success("Nft uploaded as avatar successfully");
+      dispatchtoast({
+        text: "Nft uploaded as avatar successfully",
+      });
       queryClient.refetchQueries({ queryKey: ["fulluser"] });
       setOpen(false);
     },

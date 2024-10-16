@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import Spinner from "@/components/spinner";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { dispatchtoast } from "@/components/toast";
 
 const formSchema = z.object({
   value: z.string().min(2, {
@@ -66,7 +67,9 @@ const ContactAddLinksComponent = ({ data }: DataProps) => {
       }
     },
     onSuccess: () => {
-      toast.success("Link added successfully");
+      dispatchtoast({
+        text: "Link added successfully",
+      });
       queryClient.refetchQueries({
         queryKey: ["fulluser"],
       });

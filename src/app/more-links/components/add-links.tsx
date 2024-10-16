@@ -18,6 +18,7 @@ import { axiosInstance } from "@/service/api.service";
 import { apiRoutes } from "@/service/api.route";
 import { toast } from "sonner";
 import Spinner from "@/components/spinner";
+import { dispatchtoast } from "@/components/toast";
 
 const formSchema = z.object({
   url: z.string().min(2, {
@@ -52,7 +53,9 @@ const AddLinksComponent = () => {
       });
     },
     onSuccess: () => {
-      toast.success("Link added successfully");
+      dispatchtoast({
+        text: "Link added successfully",
+      });
       queryClient.refetchQueries({
         queryKey: ["fulluser"],
       });

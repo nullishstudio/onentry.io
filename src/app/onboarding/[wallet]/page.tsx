@@ -35,6 +35,7 @@ import { useAccount } from "wagmi";
 import { useState } from "react";
 import { OnboardingBanner } from "@/assets";
 import Image from "next/image";
+import { dispatchtoast } from "@/components/toast";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -162,8 +163,8 @@ export default function Onboarding() {
         });
 
         if (res.status === 200 || res.status === 201) {
-          toast.success("Set up through base was successful", {
-            position: "top-right",
+          dispatchtoast({
+            text: "Set up with basename was successful",
           });
           router.push("/dashboard");
         } else {
