@@ -8,6 +8,7 @@ const CONTACT = "contact";
 const PORTFOLIO = "portfolio";
 const USER = "user";
 const BASEAVATAR = "avatar/base";
+const PUBLIC_PROFILE = "public-profile";
 
 export const apiRoutes = {
   CREATE_ACCOUNT,
@@ -20,4 +21,5 @@ export const apiRoutes = {
   PORTFOLIO,
   USER,
   BASEAVATAR,
+  PUBLIC_PROFILE,
 };
