@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, Home, Settings, Mail, User } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link1, Sms } from "iconsax-react";
 import { dispatchtoast } from "./toast";
 import Link from "next/link";

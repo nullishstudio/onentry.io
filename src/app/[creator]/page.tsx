@@ -11,7 +11,7 @@ import { AiOutlineDiscord } from "react-icons/ai";
 import { axiosInstance } from "@/service/api.service";
 import { apiRoutes } from "@/service/api.route";
 import { useQuery } from "@tanstack/react-query";
-import { SampleUser, UnknownCreator } from "@/assets";
+import { SampleUser } from "@/assets";
 import Link from "next/link";
 import { dispatchtoast } from "@/components/toast";
 import {
