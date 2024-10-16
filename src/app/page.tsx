@@ -75,6 +75,7 @@ export default function Home() {
         return;
       }
     } catch (error) {
+      console.log(error);
       return await loginWalletAddress();
     }
   };
