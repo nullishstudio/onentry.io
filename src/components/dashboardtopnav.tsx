@@ -29,7 +29,7 @@ export default function DashboardTopnav() {
 
   const handleCopyLink = () => {
     if (data?.username) {
-      const profileUrl = `https://onentry.xyz/${data.username}`;
+      const profileUrl = `https://onentryio-production.up.railway.app/${data.username}`;
       navigator.clipboard.writeText(profileUrl);
       dispatchtoast({
         text: "Link copied to clipboard!",
@@ -91,7 +91,7 @@ export default function DashboardTopnav() {
                 size={256}
                 className="w-[196px] h-[196px] my-8"
                 //style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                value={`https://onentry.xyz/${data?.username}`}
+                value={`https://onentryio-production.up.railway.app/${data?.username}`}
                 viewBox={`0 0 256 256`}
               />
             </div>

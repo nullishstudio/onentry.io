@@ -85,7 +85,7 @@ const Creator = () => {
 
   const handleCopyLink = () => {
     if (data?.username) {
-      const profileUrl = `https://onentry.xyz/${data.username}`;
+      const profileUrl = `https://onentryio-production.up.railway.app/${data.username}`;
       navigator.clipboard.writeText(profileUrl);
       dispatchtoast({
         text: "Creator link copied to clipboard!",

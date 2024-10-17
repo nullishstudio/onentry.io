@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { axiosInstance, uploadImage } from "@/service/api.service";
 import { apiRoutes } from "@/service/api.route";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -23,6 +23,8 @@ import Loader from "@/components/loader";
 import Spinner from "@/components/spinner";
 import { EmptyState } from "@/assets";
 import { dispatchtoast } from "@/components/toast";
+import { useAccount } from "wagmi";
+import { MutationCache } from "@tanstack/react-query";
 
 const AvatarForm = () => {
   const [uploading, setUploading] = useState(false);
@@ -31,26 +33,16 @@ const AvatarForm = () => {
   const [open, setOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
+  const { address } = useAccount();
 
-  const fetchUserNfts = async () => {
-    try {
-      await Moralis.start({
-        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
-      });
-
-      const response = await Moralis.EvmApi.nft.getWalletNFTs({
-        chain: "0x2105", //base network
-        format: "decimal",
-        mediaItems: true,
-        excludeSpam: true,
-        address: "0xff3879b8a363aed92a6eaba8f61f1a96a9ec3c1e",
-      });
-
-      return response.raw;
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const mutationCache = new MutationCache({
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
 
   const fetchUserAvatars = async () => {
     const res = await axiosInstance.get(apiRoutes.GET_ALL_AVATARS);
@@ -121,19 +113,43 @@ const AvatarForm = () => {
     }
   };
 
-  //fetch nfts
-  const {
-    data: result,
-    isLoading: loading,
-    refetch: refetchGetNft,
-  } = useQuery({
-    queryKey: ["nfts"],
-    queryFn: fetchUserNfts,
-    retry: false,
-    refetchInterval: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+  const fetchUserNfts = async (address: string) => {
+    try {
+      await Moralis.start({
+        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
+      });
+
+      const response = await Moralis.EvmApi.nft.getWalletNFTs({
+        chain: "0x2105", //base network
+        format: "decimal",
+        mediaItems: true,
+        excludeSpam: true,
+        address: address,
+      });
+
+      return response.raw;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const nftAction = useMutation({
+    mutationFn: () => fetchUserNfts(address!),
+    mutationKey: ["fetchnftsfrombase"],
+    retry: true,
+    onSuccess: () => {
+      queryClient.getMutationCache().clear();
+    },
+    onSettled: () => {
+      queryClient.getMutationCache().clear();
+    },
   });
+
+  const xyz = queryClient.getMutationCache().getAll();
+  console.log(xyz);
+
+  const cleared = queryClient.getMutationCache().clear();
+  console.log(cleared);
 
   const saveAndUploadNFTPicture = async () => {
     const res = await axiosInstance.patch(apiRoutes.USER, {
@@ -227,7 +243,9 @@ const AvatarForm = () => {
           <DialogTrigger asChild className="w-full">
             <Button
               variant={undefined}
-              onClick={() => refetchGetNft()}
+              onClick={() => {
+                return nftAction.mutate();
+              }}
               className="text-[#7880E9] w-full h-12 border border-[#7880E9] text-base font-semibold font-plus-jakarta py-3 px-5 min-h-12 rounded-xl bg-white shadow-none hover:bg-white"
             >
               Choose From NFTs
@@ -242,7 +260,7 @@ const AvatarForm = () => {
                 </h1>
               </DialogTitle>
             </DialogHeader>
-            {loading && (
+            {nftAction.isPending && (
               <div className="spinner absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
                 <div className="grid text-center place-items-center gap-2">
                   <Loader />
@@ -253,9 +271,20 @@ const AvatarForm = () => {
               </div>
             )}
             <div className="mt-4">
-              <div className={`${result?.result && "grid grid-cols-3 gap-4"}`}>
+              <div
+                className={`${
+                  nftAction.isPending && "grid grid-cols-3 gap-4"
+                } ${
+                  nftAction.data?.result.length === 0 &&
+                  "grid place-items-center"
+                } ${
+                  nftAction.data?.result?.length !== 0 &&
+                  "grid grid-cols-3 gap-4"
+                }
+                place-items-center`}
+              >
                 <>
-                  {loading &&
+                  {nftAction.isPending &&
                     Array(9)
                       .fill({})
                       .map((itm, idx: number) => (
@@ -266,39 +295,32 @@ const AvatarForm = () => {
                       ))}
                 </>
                 <>
-                  {!loading && (
+                  {!nftAction.isPending && (
                     <>
-                      {result?.result &&
-                        result.result
+                      {nftAction.data?.result.length !== 0 &&
+                        nftAction.data?.result
                           .slice(0, 9)
                           .map((itm, idx) => (
                             <Image
-                              src={
-                                itm.media?.media_collection
-                                  ? itm.media?.media_collection?.high.url
-                                  : ""
-                              }
+                              src={itm.media && itm.media.original_media_url}
                               alt={itm.name}
                               key={idx}
                               width={100}
                               height={144}
                               className={`${
-                                nftUrl ===
-                                  itm.media?.media_collection?.high.url &&
+                                nftUrl === itm?.media.original_media_url &&
                                 "border-[2.2px] border-[#7880e9]"
                               } w-full h-36 cursor-pointer rounded-[8px] hover:border-2 hover:border-[#7880E9] shadow-[#7880E9]`}
                               onClick={() =>
-                                setNftUrl(
-                                  itm?.media?.media_collection?.high?.url
-                                )
+                                setNftUrl(itm?.media.original_media_url)
                               }
                             />
                           ))}
 
                       {/* No NFT */}
                       <>
-                        {!result?.result && (
-                          <div className="flex flex-col items-center gap-2">
+                        {nftAction.data?.result?.length === 0 && (
+                          <div className="flex flex-col items-center justify-center gap-2">
                             <Image src={EmptyState} alt="empty_state" />
                             <p className="font-plus-jakarta text-base font-medium text-[#667085]">
                               You don’t have any NFTs
@@ -325,7 +347,7 @@ const AvatarForm = () => {
                   <Spinner />
                 </Button>
               )}
-              {result?.result && (
+              {nftAction.data?.result && nftAction.data?.result?.length > 0 && (
                 <>
                   {!saveSelectedNft.isPending && (
                     <Button

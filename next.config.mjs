@@ -11,6 +11,7 @@ const nextConfig = {
       "ipfs.io",
       "i.seadn.io",
       "nft-preview-media.s3.us-east-1.amazonaws.com",
+      "base.org",
     ],
   },
 };
