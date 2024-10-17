@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { axiosInstance, uploadImage } from "@/service/api.service";
 import { apiRoutes } from "@/service/api.route";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +24,6 @@ import Spinner from "@/components/spinner";
 import { EmptyState } from "@/assets";
 import { dispatchtoast } from "@/components/toast";
 import { useAccount } from "wagmi";
-import { MutationCache } from "@tanstack/react-query";
 
 const AvatarForm = () => {
   const [uploading, setUploading] = useState(false);
@@ -34,15 +33,6 @@ const AvatarForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const { address } = useAccount();
-
-  const mutationCache = new MutationCache({
-    onError: (error) => {
-      console.log(error);
-    },
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
 
   const fetchUserAvatars = async () => {
     const res = await axiosInstance.get(apiRoutes.GET_ALL_AVATARS);
@@ -302,17 +292,21 @@ const AvatarForm = () => {
                           .slice(0, 9)
                           .map((itm, idx) => (
                             <Image
-                              src={itm.media && itm.media.original_media_url}
+                              src={
+                                (itm.media && itm.media.original_media_url) ||
+                                ""
+                              }
                               alt={itm.name}
                               key={idx}
                               width={100}
                               height={144}
                               className={`${
-                                nftUrl === itm?.media.original_media_url &&
-                                "border-[2.2px] border-[#7880e9]"
+                                nftUrl === itm?.media?.original_media_url
+                                  ? "border-[2.2px] border-[#7880e9]"
+                                  : ""
                               } w-full h-36 cursor-pointer rounded-[8px] hover:border-2 hover:border-[#7880E9] shadow-[#7880E9]`}
                               onClick={() =>
-                                setNftUrl(itm?.media.original_media_url)
+                                setNftUrl(itm?.media?.original_media_url)
                               }
                             />
                           ))}

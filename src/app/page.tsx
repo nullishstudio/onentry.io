@@ -58,7 +58,7 @@ export default function Home() {
   }, []);
 
   const verifyWalletAddress = async () => {
-    if (!token) {
+    if (token) {
       return await loginWalletAddress();
     }
 
