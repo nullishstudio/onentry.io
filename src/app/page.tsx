@@ -58,9 +58,9 @@ export default function Home() {
   }, []);
 
   const verifyWalletAddress = async () => {
-    if (token) {
+    /*  if (token) {
       return await loginWalletAddress();
-    }
+    } */
 
     try {
       const res = await axiosInstance.get(
@@ -69,6 +69,7 @@ export default function Home() {
       if (res.data.statusCode === 404) {
         return await createWalletAddress();
       } else {
+        await loginWalletAddress();
         dispatchtoast({
           text: "Welcome back!",
         });
@@ -76,7 +77,7 @@ export default function Home() {
       }
     } catch (error) {
       console.log(error);
-      return await loginWalletAddress();
+      /*   return await loginWalletAddress(); */
     }
   };
 
