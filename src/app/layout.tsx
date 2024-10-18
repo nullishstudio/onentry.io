@@ -7,8 +7,9 @@ import Web3Provider from "@/provider/wagmi.provider";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Onentry",
-  description: "Your Web3 Profile, Everywhere",
+  title: "Onentry - Your Web3 Profile, Everywhere",
+  description:
+    "Create a decentralized profile that follows you across all your favorite dApps, platforms, and blockchain services, with full control over your identity.",
 };
 
 const bricolage_grotesque = Bricolage_Grotesque({
