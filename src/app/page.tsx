@@ -318,7 +318,7 @@ export default function Home() {
         <h2 className="text-center font-bricolage-grotesque font-extrabold text-2xl md:text-5xl text-[#1D2939]">
           Frequently Asked Questions
         </h2>
-        <div className="accordion md:min-w-[800px] my-0 mx-auto w-full">
+        <div className="accordion md:w-[800px] my-0 mx-auto w-full">
           <Accordion type="single" collapsible className="grid gap-3">
             <AccordionItem value="item-1">
               <AccordionTrigger>What is Onentry?</AccordionTrigger>
