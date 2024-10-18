@@ -33,7 +33,7 @@ const Dashboardlayout = ({
             <DashboardSidebar title={title}>{element}</DashboardSidebar>
           </div>
         )}
-        <div className="md:ml-[392px] w-full bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)] md:p-6 p-3">
+        <div className="md:ml-[392px] w-full bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)] p-6">
           {children}
         </div>
       </div>

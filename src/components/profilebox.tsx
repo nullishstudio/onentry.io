@@ -70,7 +70,7 @@ const ProfileBox = () => {
   ] as const;
 
   return (
-    <div className="md:p-6 my-0 mx-auto rounded-2xl">
+    <div className="md:p-6 my-0 mx-auto rounded-2xl h-dvh md:h-full">
       {isLoading && (
         <>
           <div className="min-h-[300px] bg-white md:p-[56px] p-5 rounded-2xl grid gap-5">
