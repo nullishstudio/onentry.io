@@ -13,7 +13,6 @@ import { SiFarcaster } from "react-icons/si";
 import { Github, Link as LinkURL } from "lucide-react";
 import { AiOutlineDiscord } from "react-icons/ai";
 import AppButton from "./button";
-import { nullable } from "zod";
 
 const ProfileBox = () => {
   const fetchUserProfile = async () => {
