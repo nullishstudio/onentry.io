@@ -58,7 +58,7 @@ const BasicInfoForm = ({ data }: DataProps) => {
       fullname: data?.fullname || "",
       bio: data?.bio || "",
     });
-  }, [data?.bio, data?.fullname, data?.username, form]);
+  }, [data?.bio, data?.fullname, data?.username, form, data]);
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: ["updatebasicInfomationProfile"],

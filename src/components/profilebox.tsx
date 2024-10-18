@@ -13,6 +13,7 @@ import { SiFarcaster } from "react-icons/si";
 import { Github, Link as LinkURL } from "lucide-react";
 import { AiOutlineDiscord } from "react-icons/ai";
 import AppButton from "./button";
+import { nullable } from "zod";
 
 const ProfileBox = () => {
   const fetchUserProfile = async () => {
@@ -128,13 +129,15 @@ const ProfileBox = () => {
                   {!isLoading && <>{data?.bio}</>}
                 </p>
                 <div className="flex items-center gap-[10px]">
-                  {socialLinks.map(({ icon, url }, idx) => (
-                    <Link key={idx} href={url ? url : "#"}>
-                      <button key={idx} className="text-[#7880E9]">
-                        {icon}
-                      </button>
-                    </Link>
-                  ))}
+                  {socialLinks
+                    .filter((itm) => itm.url !== nullable)
+                    .map(({ icon, url }, idx) => (
+                      <Link key={idx} href={url ? url : "#"}>
+                        <button key={idx} className="text-[#7880E9]">
+                          {icon}
+                        </button>
+                      </Link>
+                    ))}
                 </div>
                 <div className="bg-[#EAECF0] h-[1px] w-full my-3" />
                 <div className="grid grid-cols-3 gap-3">

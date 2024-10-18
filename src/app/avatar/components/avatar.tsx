@@ -103,44 +103,6 @@ const AvatarForm = () => {
     }
   };
 
-  const fetchUserNfts = async (address: string) => {
-    try {
-      await Moralis.start({
-        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
-      });
-
-      const response = await Moralis.EvmApi.nft.getWalletNFTs({
-        chain: "0x2105", //base network
-        format: "decimal",
-        mediaItems: true,
-        excludeSpam: true,
-        address: address,
-      });
-
-      return response.raw;
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const nftAction = useMutation({
-    mutationFn: () => fetchUserNfts(address!),
-    mutationKey: ["fetchnftsfrombase"],
-    retry: true,
-    onSuccess: () => {
-      queryClient.getMutationCache().clear();
-    },
-    onSettled: () => {
-      queryClient.getMutationCache().clear();
-    },
-  });
-
-  const xyz = queryClient.getMutationCache().getAll();
-  console.log(xyz);
-
-  const cleared = queryClient.getMutationCache().clear();
-  console.log(cleared);
-
   const saveAndUploadNFTPicture = async () => {
     const res = await axiosInstance.patch(apiRoutes.USER, {
       avatarUrl: nftUrl,
@@ -170,6 +132,34 @@ const AvatarForm = () => {
       toast.error("Please select an nft first");
     }
   };
+
+  const fetchUserNfts = async (address: string) => {
+    try {
+      await Moralis.start({
+        apiKey: process.env.NEXT_PUBLIC_MORALIS_API,
+      });
+
+      const response = await Moralis.EvmApi.nft.getWalletNFTs({
+        chain: "0x2105", //base network
+        format: "decimal",
+        mediaItems: true,
+        excludeSpam: true,
+        address: address,
+      });
+
+      return response.raw;
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const { data: nftfromwallet, isLoading: nftloading } = useQuery({
+    queryKey: ["fetchnftsfrombase"],
+    queryFn: () => fetchUserNfts(address!),
+    enabled: !!address,
+    refetchOnMount: true,
+    retry: true,
+  });
 
   return (
     <div className="mt-1 grid gap-3">
@@ -233,9 +223,6 @@ const AvatarForm = () => {
           <DialogTrigger asChild className="w-full">
             <Button
               variant={undefined}
-              onClick={() => {
-                return nftAction.mutate();
-              }}
               className="text-[#7880E9] w-full h-12 border border-[#7880E9] text-base font-semibold font-plus-jakarta py-3 px-5 min-h-12 rounded-xl bg-white shadow-none hover:bg-white"
             >
               Choose From NFTs
@@ -250,7 +237,7 @@ const AvatarForm = () => {
                 </h1>
               </DialogTitle>
             </DialogHeader>
-            {nftAction.isPending && (
+            {nftloading && (
               <div className="spinner absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
                 <div className="grid text-center place-items-center gap-2">
                   <Loader />
@@ -262,19 +249,16 @@ const AvatarForm = () => {
             )}
             <div className="mt-4">
               <div
-                className={`${
-                  nftAction.isPending && "grid grid-cols-3 gap-4"
-                } ${
-                  nftAction.data?.result.length === 0 &&
+                className={`${nftloading && "grid grid-cols-3 gap-4"} ${
+                  nftfromwallet?.result.length === 0 &&
                   "grid place-items-center"
                 } ${
-                  nftAction.data?.result?.length !== 0 &&
-                  "grid grid-cols-3 gap-4"
+                  nftfromwallet?.result.length !== 0 && "grid grid-cols-3 gap-4"
                 }
                 place-items-center`}
               >
                 <>
-                  {nftAction.isPending &&
+                  {nftloading &&
                     Array(9)
                       .fill({})
                       .map((itm, idx: number) => (
@@ -285,10 +269,10 @@ const AvatarForm = () => {
                       ))}
                 </>
                 <>
-                  {!nftAction.isPending && (
+                  {!nftloading && (
                     <>
-                      {nftAction.data?.result.length !== 0 &&
-                        nftAction.data?.result
+                      {nftfromwallet?.result.length !== 0 &&
+                        nftfromwallet?.result
                           .slice(0, 9)
                           .map((itm, idx) => (
                             <Image
@@ -313,7 +297,7 @@ const AvatarForm = () => {
 
                       {/* No NFT */}
                       <>
-                        {nftAction.data?.result?.length === 0 && (
+                        {nftfromwallet?.result.length === 0 && (
                           <div className="flex flex-col items-center justify-center gap-2">
                             <Image src={EmptyState} alt="empty_state" />
                             <p className="font-plus-jakarta text-base font-medium text-[#667085]">
@@ -341,7 +325,7 @@ const AvatarForm = () => {
                   <Spinner />
                 </Button>
               )}
-              {nftAction.data?.result && nftAction.data?.result?.length > 0 && (
+              {nftfromwallet?.result && nftfromwallet?.result.length > 0 && (
                 <>
                   {!saveSelectedNft.isPending && (
                     <Button

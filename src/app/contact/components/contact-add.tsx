@@ -49,7 +49,7 @@ const ContactAddLinksComponent = ({ data }: DataProps) => {
     form.reset({
       value: param.type === "email" ? data?.email : data?.phone,
     });
-  }, [data?.email, data?.phone, form, param]);
+  }, [data?.email, data?.phone, form, param, data]);
 
   const { mutateAsync, isPending } = useMutation({
     mutationKey: ["createcontact"],
