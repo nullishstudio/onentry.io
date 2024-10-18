@@ -323,13 +323,17 @@ export default function Home() {
             <AccordionItem value="item-1">
               <AccordionTrigger>What is Onentry?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Web3Avatar is a decentralized identity system that lets you
+                create and manage your complete Web3 profile, including your
+                avatar, bio, and social media links, all linked to your crypto
+                wallet.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>How do I connect my wallet?</AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Simply click ‘Connect Wallet’ and follow the instructions for
+                your preferred wallet (e.g., MetaMask, WalletConnect).
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-3">
@@ -337,7 +341,8 @@ export default function Home() {
                 Can I use an NFT as my avatar?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Yes! You can select any NFT from your connected wallet and set
+                it as your profile image.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-4">
@@ -345,7 +350,8 @@ export default function Home() {
                 Where will my profile be visible?
               </AccordionTrigger>
               <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
+                Your profile will be visible across supported Web3 dApps,
+                marketplaces, and social platforms that integrate Web3Avatar.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

@@ -71,10 +71,10 @@ const ProfileBox = () => {
   ] as const;
 
   return (
-    <div className="p-6 my-0 mx-auto rounded-2xl">
+    <div className="md:p-6 my-0 mx-auto rounded-2xl">
       {isLoading && (
         <>
-          <div className="min-h-[300px] bg-white p-[56px] rounded-2xl grid gap-5">
+          <div className="min-h-[300px] bg-white md:p-[56px] p-5 rounded-2xl grid gap-5">
             <Skeleton className="rounded-[100px] w-32 h-32" />
             <div className="grid gap-1">
               <Skeleton className="h-5 w-[136px] rounded-md" />
@@ -95,7 +95,7 @@ const ProfileBox = () => {
         <>
           <>
             {data?.username && (
-              <div className="min-h-[300px] bg-white p-[56px] rounded-2xl grid gap-5">
+              <div className="min-h-[300px] bg-white p-10 md:p-[56px] rounded-2xl grid gap-5">
                 {isLoading ? (
                   <Skeleton className="rounded-[100px] w-32 h-32" />
                 ) : (
@@ -130,7 +130,7 @@ const ProfileBox = () => {
                 </p>
                 <div className="flex items-center gap-[10px]">
                   {socialLinks
-                    .filter((itm) => itm.url !== nullable)
+                    .filter((itm) => itm.url !== null || itm.url !== "")
                     .map(({ icon, url }, idx) => (
                       <Link key={idx} href={url ? url : "#"}>
                         <button key={idx} className="text-[#7880E9]">
@@ -140,7 +140,7 @@ const ProfileBox = () => {
                     ))}
                 </div>
                 <div className="bg-[#EAECF0] h-[1px] w-full my-3" />
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
                   {isLoading && (
                     <>
                       <Skeleton className="py-2 px-3 min-h-[51px] rounded-xl grid gap-[10px]" />
@@ -171,7 +171,7 @@ const ProfileBox = () => {
                                 key={idx}
                                 className="text-sm font-plus-jakarta font-normal text-[#1D2939] flex items-center gap-2"
                               >
-                                <Link href={url}>
+                                <Link href={url ? url : "#"}>
                                   <Link2
                                     size="18"
                                     cursor="pointer"

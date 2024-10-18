@@ -55,7 +55,7 @@ const Sidebar = () => {
 
   const path = usePathname();
   return (
-    <div className="w-[398px] min-h-[878px] h-full p-4">
+    <div className="w-[398px] min-h-[878px] h-full p-4 hidden md:block">
       <div className="min-h-[846px] h-full bg-[#F9FAFB] rounded-2xl py-5 px-4">
         <h2 className="text-base font-plus-jakarta font-semibold">
           Personal Information
