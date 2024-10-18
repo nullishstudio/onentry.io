@@ -26,17 +26,11 @@ import { useEffect, useRef, useState } from "react";
 import { dispatchtoast } from "@/components/toast";
 
 export default function Home() {
-  /*   const [token, setToken] = useState<string | null>(null); */
   const { address } = useAccount();
   const router = useRouter();
 
   const [isInView, setIsInView] = useState(false);
   const ref = useRef(null);
-
-  /* useEffect(() => {
-    const storedToken = localStorage.getItem("onentry_token");
-    setToken(storedToken);
-  }, []); */
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -58,10 +52,6 @@ export default function Home() {
   }, []);
 
   const verifyWalletAddress = async () => {
-    /*  if (token) {
-      return await loginWalletAddress();
-    } */
-
     try {
       const res = await axiosInstance.get(
         `${apiRoutes.VERIFY_WALLET}/${address}`
@@ -77,7 +67,6 @@ export default function Home() {
       }
     } catch (error) {
       console.log(error);
-      /*   return await loginWalletAddress(); */
     }
   };
 
