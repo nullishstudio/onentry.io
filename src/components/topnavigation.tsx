@@ -58,6 +58,7 @@ export default function TopNavigation() {
                     userSelect: "none",
                   },
                 })}
+                className="md:block hidden"
               >
                 {(() => {
                   if (!connected) {

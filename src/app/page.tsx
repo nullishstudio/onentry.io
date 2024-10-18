@@ -122,12 +122,12 @@ export default function Home() {
 
   return (
     <AppLayout>
-      <div className="hero relative py-[120px] px-2 max-h-[800px] rounded-[40px] bg-bg-grad2 overflow-hidden">
-        <div className="z-[9999999] grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
-          <h1 className="font-bricolage-grotesque font-extrabold text-6xl gradient-text">
+      <div className="hero relative py-[120px] px-2 md:max-h-[800px] max-h-[700px] rounded-[40px] bg-bg-grad2 overflow-hidden">
+        <div className="z-[9999999] flex flex-col md:grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
+          <h1 className="font-bricolage-grotesque font-extrabold text-3xl md:text-6xl gradient-text">
             Your Web3 Profile, Everywhere
           </h1>
-          <p className="z-50 font-plus-jakarta text-[#565F71] text-base font-medium max-w-[436px]">
+          <p className="z-50 font-plus-jakarta text-[#565F71] text-base font-medium md:max-w-[436px]">
             Create a decentralized profile that follows you across all your
             favorite dApps, platforms, and blockchain services, with full
             control over your identity.
@@ -226,7 +226,7 @@ export default function Home() {
       </div>
       {/* Digital Wallet Section */}
       <div className="grid gap-4 place-items-center mt-24">
-        <h1 className=" text-center font-bricolage-grotesque font-extrabold text-5xl max-w-[605px] text-[#1D2939]">
+        <h1 className=" text-center font-bricolage-grotesque font-extrabold text-2xl md:text-5xl max-w-[605px] text-[#1D2939]">
           Own Your Digital Identity Across Web3
         </h1>
         <p className="text-center font-plus-jakarta text-[#565F71] text-base font-medium max-w-[549px]">
@@ -234,7 +234,7 @@ export default function Home() {
           Your profile is yours to control—decentralized and completely yours.
         </p>
         <div className="mt-[64px] grid gap-4">
-          <div className="flex gap-4">
+          <div className="flex gap-4 md:flex-row flex-col">
             {onboardingSteps
               ?.slice(0, 3)
               .map(({ title, description, banner }, idx) => (
@@ -243,7 +243,7 @@ export default function Home() {
                   key={idx}
                 >
                   <div className="flex flex-col">
-                    <h2 className="text-[#1D2939] font-bricolage-grotesque font-extrabold text-[32px]">
+                    <h2 className="text-[#1D2939] font-bricolage-grotesque font-extrabold text-xl md:text-[32px]">
                       {title}
                     </h2>
                     <p className="text-base text-[#565F71] font-medium font-plus-jakarta max-w-[354px]">
@@ -258,7 +258,7 @@ export default function Home() {
                 </div>
               ))}
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 md:flex-row flex-col">
             {onboardingSteps
               ?.slice(3, 6)
               .map(({ title, description, banner }, idx) => (
@@ -267,7 +267,7 @@ export default function Home() {
                   key={idx}
                 >
                   <div className="flex flex-col">
-                    <h2 className="text-[#1D2939] font-bricolage-grotesque font-extrabold text-[32px]">
+                    <h2 className="text-[#1D2939] font-bricolage-grotesque font-extrabold text-xl md:text-[32px]">
                       {title}
                     </h2>
                     <p className="text-base text-[#565F71] font-medium font-plus-jakarta w-full">
@@ -286,17 +286,20 @@ export default function Home() {
       </div>
       {/* How to Get Started Steps */}
       <div className="mt-24 grid gap-16">
-        <h2 className="text-center font-bricolage-grotesque font-extrabold text-5xl text-[#1D2939]">
+        <h2 className="text-center font-bricolage-grotesque font-extrabold text-2xl md:text-5xl text-[#1D2939]">
           How to get Started
         </h2>
         {accountCreationSteps.map(({ id, title, description, img }) => (
-          <div className="flex justify-between items-center" key={id}>
+          <div
+            className="flex justify-between items-center md:flex-row flex-col gap-3"
+            key={id}
+          >
             <div className="flex gap-4 w-full">
-              <h3 className="font-bricolage-grotesque font-extrabold text-[32px] text-[#1D2939]">
+              <h3 className="font-bricolage-grotesque font-extrabold text-lg md:text-[32px] text-[#1D2939]">
                 {id}.
               </h3>
               <div>
-                <h3 className="font-bricolage-grotesque font-extrabold text-[32px] text-[#1D2939]">
+                <h3 className="font-bricolage-grotesque font-extrabold text-lg md:text-[32px] text-[#1D2939]">
                   {title}
                 </h3>
                 <p className="font-plus-jakarta text-[#565F71] text-base font-medium max-w-[409px]">
@@ -304,7 +307,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="w-full grid place-items-center rounded-3xl pt-8 pl-8 pr-8 bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)]">
+            <div className="md:w-full grid place-items-center rounded-3xl pt-8 pl-8 pr-8 bg-[linear-gradient(156deg,_#C0DFFF_0.83%,_#FFF2FC_44.55%,_#DEDBFF_89.92%)]">
               <Image src={img} alt="steps" />
             </div>
           </div>
@@ -312,10 +315,10 @@ export default function Home() {
       </div>
       {/* FAQ */}
       <div className="mt-24 grid gap-[40px]">
-        <h2 className="text-center font-bricolage-grotesque font-extrabold text-5xl text-[#1D2939]">
+        <h2 className="text-center font-bricolage-grotesque font-extrabold text-2xl md:text-5xl text-[#1D2939]">
           Frequently Asked Questions
         </h2>
-        <div className="accordion md:min-w-[800px] my-0 mx-auto">
+        <div className="accordion md:min-w-[800px] my-0 mx-auto w-full">
           <Accordion type="single" collapsible className="grid gap-3">
             <AccordionItem value="item-1">
               <AccordionTrigger>What is Onentry?</AccordionTrigger>

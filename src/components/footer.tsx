@@ -16,7 +16,7 @@ export default function Footer() {
       />
 
       <div className="grid gap-4 place-items-center text-center max-w-[605px] my-0 mx-auto">
-        <h1 className="font-bricolage-grotesque font-extrabold text-6xl footer_gradient_text">
+        <h1 className="font-bricolage-grotesque font-extrabold md:text-6xl text-2xl footer_gradient_text">
           Build Your Web3 Identity Now
         </h1>
         <p className=" font-plus-jakarta footer_desc_gradient text-base font-medium max-w-[500px]">
