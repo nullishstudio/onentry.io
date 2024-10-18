@@ -26,17 +26,17 @@ import { useEffect, useRef, useState } from "react";
 import { dispatchtoast } from "@/components/toast";
 
 export default function Home() {
-  const [token, setToken] = useState<string | null>(null);
+  /*   const [token, setToken] = useState<string | null>(null); */
   const { address } = useAccount();
   const router = useRouter();
 
   const [isInView, setIsInView] = useState(false);
   const ref = useRef(null);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const storedToken = localStorage.getItem("onentry_token");
     setToken(storedToken);
-  }, []);
+  }, []); */
 
   useEffect(() => {
     const observer = new IntersectionObserver(
