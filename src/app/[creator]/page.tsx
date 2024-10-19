@@ -46,37 +46,37 @@ const Creator = () => {
     {
       name: "Farcaster",
       icon: <SiFarcaster width={22} size={22} color="#7880E9" />,
-      connected: data?.farcaster,
+      connected: data?.farcaster ? data?.farcaster : "",
       url: `https://warpcast.com/${data?.farcaster}`,
     },
     {
       name: "Twitter",
       icon: <RiTwitterXFill width={22} size={22} color="#7880E9" />,
-      connected: data?.twitter,
+      connected: data?.twitter ? data?.twitter : "",
       url: `https://x.com/${data?.twitter}`,
     },
     {
       name: "GitHub",
       icon: <Github width={22} size={22} color="#7880E9" />,
-      connected: data?.github,
+      connected: data?.github ? data?.github : "",
       url: `https://github.com/${data?.github}`,
     },
     {
       name: "Telegram",
       icon: <FaTelegramPlane width={22} size={22} color="#7880E9" />,
-      connected: data?.telegram,
+      connected: data?.telegram ? data?.telegram : "",
       url: data?.telegram,
     },
     {
       name: "Discord",
       icon: <AiOutlineDiscord width={22} size={22} color="#7880E9" />,
-      connected: data?.discord,
+      connected: data?.discord ? data?.discord : "",
       url: data?.discord,
     },
     {
       name: "URL",
       icon: <LinkURL width={22} size="22" color="#7880E9" />,
-      connected: data?.url,
+      connected: data?.url ? data?.url : "",
       url: data?.url,
     },
   ] as const;
