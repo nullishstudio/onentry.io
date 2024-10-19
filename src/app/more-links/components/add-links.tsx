@@ -59,6 +59,9 @@ const AddLinksComponent = () => {
       queryClient.refetchQueries({
         queryKey: ["fulluser"],
       });
+      queryClient.refetchQueries({
+        queryKey: ["fetchlinksportfolios"],
+      });
     },
     onError: () => {
       toast("Something went wrong");
@@ -113,7 +116,7 @@ const AddLinksComponent = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-plus-jakarta text-sm text-[#616C74]">
-                  Brief Bio
+                  Brief Description
                 </FormLabel>
                 <FormControl>
                   <Textarea
