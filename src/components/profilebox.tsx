@@ -35,19 +35,19 @@ const ProfileBox = () => {
       name: "Farcaster",
       icon: <SiFarcaster width={22} size={22} color="#7880E9" />,
       connected: data?.farcaster,
-      url: data?.farcaster,
+      url: `https://warpcast.com/${data?.farcaster}`,
     },
     {
       name: "Twitter",
       icon: <RiTwitterXFill width={22} size={22} color="#7880E9" />,
       connected: data?.twitter,
-      url: data?.twitter,
+      url: `https://x.com/${data?.twitter}`,
     },
     {
       name: "GitHub",
       icon: <Github width={22} size={22} color="#7880E9" />,
       connected: data?.github,
-      url: data?.github,
+      url: `https://github.com/${data?.github}`,
     },
     {
       name: "Telegram",
@@ -129,9 +129,13 @@ const ProfileBox = () => {
                 </p>
                 <div className="flex items-center gap-[10px]">
                   {socialLinks
-                    .filter((itm) => itm.url !== null || itm.url !== "")
+                    .filter((itm) => itm.connected !== "")
                     .map(({ icon, url }, idx) => (
-                      <Link key={idx} href={url ? url : "#"}>
+                      <Link
+                        key={idx}
+                        href={url ? url : "#"}
+                        className="cursor-pointer"
+                      >
                         <button key={idx} className="text-[#7880E9]">
                           {icon}
                         </button>

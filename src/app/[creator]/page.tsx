@@ -42,26 +42,24 @@ const Creator = () => {
     staleTime: 0,
   });
 
-  console.log(data);
-
   const socialLinks = [
     {
       name: "Farcaster",
       icon: <SiFarcaster width={22} size={22} color="#7880E9" />,
       connected: data?.farcaster,
-      url: data?.farcaster,
+      url: `https://warpcast.com/${data?.farcaster}`,
     },
     {
       name: "Twitter",
       icon: <RiTwitterXFill width={22} size={22} color="#7880E9" />,
       connected: data?.twitter,
-      url: data?.twitter,
+      url: `https://x.com/${data?.twitter}`,
     },
     {
       name: "GitHub",
       icon: <Github width={22} size={22} color="#7880E9" />,
       connected: data?.github,
-      url: data?.github,
+      url: `https://github.com/${data?.github}`,
     },
     {
       name: "Telegram",
@@ -153,13 +151,19 @@ const Creator = () => {
                       {!isLoading && <>{data?.bio}</>}
                     </p>
                     <div className="flex items-center gap-[10px]">
-                      {socialLinks.map(({ icon, url }, idx) => (
-                        <Link key={idx} href={url ? url : "#"}>
-                          <button key={idx} className="text-[#7880E9]">
-                            {icon}
-                          </button>
-                        </Link>
-                      ))}
+                      {socialLinks
+                        .filter((itm) => itm.connected !== "")
+                        .map(({ icon, url }, idx) => (
+                          <Link
+                            key={idx}
+                            href={url ? url : "#"}
+                            className="cursor-pointer"
+                          >
+                            <button key={idx} className="text-[#7880E9]">
+                              {icon}
+                            </button>
+                          </Link>
+                        ))}
                     </div>
                     <div className="bg-[#EAECF0] h-[1px] w-full my-3" />
                     <h2 className="font-plus-jakarta text-base text-[#1D2939] font-semibold">
