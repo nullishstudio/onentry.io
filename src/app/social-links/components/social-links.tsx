@@ -165,7 +165,8 @@ const SocialLinksComponent = ({ data }: SocialProps) => {
                     Complete or update profile{" "}
                   </DialogTitle>
                   <DialogDescription className="font-plus-jakarta">
-                    Setup your {platform} profile by adding your username.
+                    Setup your {platform?.toLowerCase()}{" "}
+                    {name === "URL" ? "" : "profile by adding your username"}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2">
