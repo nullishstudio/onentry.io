@@ -68,7 +68,7 @@ const ContactAddLinksComponent = ({ data }: DataProps) => {
     },
     onSuccess: () => {
       dispatchtoast({
-        text: "Link added successfully",
+        text: "Contact added successfully",
       });
       queryClient.refetchQueries({
         queryKey: ["fulluser"],
